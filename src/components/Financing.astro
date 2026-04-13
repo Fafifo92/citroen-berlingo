@@ -1,0 +1,99 @@
+---
+// Financing.astro — Financing/pricing cards
+const plans = [
+  {
+    name: 'Plan Impulso',
+    monthly: '$1.790.000',
+    downPayment: '20%',
+    term: '72 meses',
+    rate: 'Sujeto a perfil',
+    features: [
+      'Sin comisión por apertura',
+      'Periodo de gracia de 2 meses',
+      'Matrícula incluida',
+    ],
+    highlight: false,
+  },
+  {
+    name: 'Plan Óptimo',
+    monthly: '$1.490.000',
+    downPayment: '30%',
+    term: '72 meses',
+    rate: 'Tasa preferencial',
+    features: [
+      'Seguro todo riesgo incluido (1er año)',
+      'Sin comisión por apertura',
+      'Aprobación en 24 horas',
+      'Matrícula y SOAT gratis',
+    ],
+    highlight: true,
+  },
+  {
+    name: 'Plan Pyme / Flotas',
+    monthly: '$1.290.000',
+    downPayment: '40%',
+    term: '60 meses',
+    rate: 'Tasa corporativa',
+    features: [
+      'Mantenimiento preventivo x 1 año',
+      'Descuento especial por volumen',
+      'Facturación corporativa',
+      'Tramitología prioritaria',
+    ],
+    highlight: false,
+  },
+];
+---
+
+<section class="py-20 bg-[#F5F6F7]" id="financing">
+  <div class="max-w-[1200px] mx-auto px-6">
+    <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] text-[#3B3938] text-center mb-3 uppercase font-bold">Planes de Financiamiento</h2>
+    <p class="text-[17px] text-[#646464] text-center max-w-[600px] mx-auto mb-12 leading-relaxed font-normal normal-case">
+      Opciones de pago flexibles adaptadas al tamaño de tu operación.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {plans.map((plan) => (
+        <div class={`bg-white border rounded-lg flex flex-col ${plan.highlight ? 'border-[#DA291C] ring-2 ring-[#DA291C]/15 relative' : 'border-[#E7E7E7]'}`}>
+          {plan.highlight && (
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+              <span class="px-4 py-1 text-[11px] font-bold uppercase tracking-wider text-white bg-[#DA291C] rounded-full whitespace-nowrap">Más popular</span>
+            </div>
+          )}
+
+          <div class="p-8 text-center border-b border-[#E7E7E7]">
+            <h3 class="text-sm font-bold uppercase tracking-[0.1em] text-[#646464] mb-4">{plan.name}</h3>
+            <div class="mb-2">
+              <span class="text-4xl font-bold text-[#3B3938]">{plan.monthly}</span>
+              <span class="text-sm text-[#ababab]"> / mes</span>
+            </div>
+            <p class="text-[13px] text-[#ababab]">Enganche {plan.downPayment} · {plan.term} · {plan.rate}</p>
+          </div>
+
+          <div class="p-8 flex-1">
+            <ul class="space-y-3">
+              {plan.features.map((f) => (
+                <li class="flex items-start gap-3 text-[14px] text-[#3B3938]">
+                  <svg class="w-4 h-4 text-[#DA291C] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="px-8 pb-8">
+            <a href="#lead-form" class={`w-full ${plan.highlight ? 'btn-primary' : 'btn-outline-dark'}`}>
+              Solicitar Plan
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p class="text-xs text-[#ababab] text-center mt-8 max-w-2xl mx-auto">
+      * Precios sujetos a aprobación crediticia. Las mensualidades son referenciales y pueden variar. Consulta condiciones vigentes con tu concesionario autorizado.
+    </p>
+  </div>
+</section>

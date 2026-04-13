@@ -1,0 +1,55 @@
+---
+// Specs.astro — Technical specifications table
+const specs = [
+  { category: 'Motor', items: [
+    { label: 'Tipo', value: '1.5 Turbo Diésel HDi' },
+    { label: 'Potencia', value: '100 CV @ 3.500 rpm' },
+    { label: 'Par máximo', value: '254 Nm @ 1.750 rpm' },
+    { label: 'Transmisión', value: 'Manual de 6 velocidades' },
+    { label: 'Norma emisiones', value: 'Euro 6' },
+  ]},
+  { category: 'Dimensiones', items: [
+    { label: 'Longitud total', value: '4.40 m (Talla M) / 4.75 m (Talla XL)' },
+    { label: 'Anchura', value: '1.84 m (sin retrovisores)' },
+    { label: 'Altura', value: '1.81 m / 1.82 m' },
+    { label: 'Batalla', value: '2.78 m / 2.97 m' },
+    { label: 'Peso en vacío', value: 'Desde 1.395 kg' },
+  ]},
+  { category: 'Capacidad', items: [
+    { label: 'Vol. de carga', value: '3.3 a 3.8 m³ (M) / 3.9 a 4.4 m³ (XL)' },
+    { label: 'Carga útil máx.', value: '1.000 kg' },
+    { label: 'Long. carga (suelo)', value: '1.81 m / 2.16 m (Extenso hasta 3.44m)' },
+    { label: 'Anchura entre ruedas', value: '1.22 m (permite estibas estándar)' },
+    { label: 'Compuertas', value: 'Traseras asimétricas apertura 180°' },
+  ]},
+];
+---
+
+<section class="py-20 bg-white" id="specs">
+  <div class="max-w-[1200px] mx-auto px-6">
+    <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] text-[#3B3938] text-center mb-3 uppercase font-bold">Ficha Técnica</h2>
+    <p class="text-[17px] text-[#646464] text-center max-w-[600px] mx-auto mb-12 leading-relaxed font-normal normal-case">
+      Todas las especificaciones de la Berlingo Van en un vistazo.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {specs.map((group) => (
+        <div class="border border-[#E7E7E7] rounded-lg overflow-hidden">
+          <!-- Category Header -->
+          <div class="bg-[#3B3938] px-6 py-4">
+            <h3 class="text-white text-sm uppercase tracking-[0.12em] font-bold normal-case">{group.category}</h3>
+          </div>
+          <!-- Items -->
+          <div class="divide-y divide-[#E7E7E7]">
+            {group.items.map((item) => (
+              <div class="flex justify-between items-start px-6 py-3.5 gap-4">
+                <span class="text-[13px] text-[#646464] font-bold uppercase tracking-wide shrink-0">{item.label}</span>
+                <span class="text-[14px] text-[#3B3938] text-right">{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

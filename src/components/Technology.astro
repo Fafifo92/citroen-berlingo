@@ -1,0 +1,86 @@
+---
+// Technology.astro - In-cabin tech and connectivity
+---
+
+<section id="technology" class="py-24 bg-[#111111] text-white overflow-hidden relative">
+  <!-- Glowing orb background effect -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-[#DA291C] rounded-full blur-[150px] opacity-10 pointer-events-none"></div>
+
+  <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+    
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      
+      <!-- Right Side on Mobile: The Image -->
+      <div class="order-2 lg:order-1 relative h-[50vw] md:h-[400px] lg:h-[600px] rounded-lg overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <img 
+          src="/citroen-berlingo/images/gallery-dynamic.png" 
+          alt="Tecnología Interior Citroën" 
+          class="absolute inset-0 w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-700"
+        />
+        
+        <!-- Glassmorphism Floating Card -->
+        <div class="absolute bottom-6 left-6 right-6 md:left-auto md:right-8 md:bottom-8 md:w-72 bg-white/10 backdrop-blur-xl border border-white/20 p-5 rounded-lg">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-8 h-8 rounded-full bg-[#DA291C] flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+            </div>
+            <span class="text-[13px] font-bold uppercase tracking-[0.05em] text-white">Mirror Screen</span>
+          </div>
+          <p class="text-[12px] text-white/70 leading-relaxed">
+            Réplica las aplicaciones de tu smartphone directamente en la pantalla táctil de forma segura.
+          </p>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="order-1 lg:order-2">
+        <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-white border border-white/30 rounded-sm">
+          Conectividad Total
+        </span>
+        <h2 class="text-[clamp(2.25rem,4vw,3.5rem)] leading-[1.1] font-bold text-white mb-6">
+          Tu Oficina<br/>
+          <span class="text-[#DA291C]">Conectada.</span>
+        </h2>
+        <p class="text-[1.125rem] text-white/70 leading-relaxed mb-10 max-w-lg">
+          La tecnología de a bordo está pensada para facilitar tu rutina. Desde la navegación conectada hasta los sistemas de asistencia, tienes el control sin apartar la mirada de la carretera.
+        </p>
+
+        <!-- Tech Features List -->
+        <div class="space-y-6">
+          
+          <div class="flex gap-4 items-start">
+             <div class="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white shrink-0">
+               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+             </div>
+             <div>
+               <h4 class="text-[16px] font-bold text-white mb-1">Pantalla Táctil de 8"</h4>
+               <p class="text-[13px] text-white/60 leading-relaxed">Sistema de infoentretenimiento de última generación intuitivo y rápido, en el centro del salpicadero.</p>
+             </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+             <div class="w-10 h-10 rounded-full border border-[#DA291C]/30 bg-[#DA291C]/10 flex items-center justify-center text-[#DA291C] shrink-0">
+               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+             </div>
+             <div>
+               <h4 class="text-[16px] font-bold text-white mb-1">Surround Rear Vision</h4>
+               <p class="text-[13px] text-white/60 leading-relaxed">Monitorización con cámaras de visión 180° que elimina puntos ciegos para maniobras perfectas (opcional).</p>
+             </div>
+          </div>
+
+          <div class="flex gap-4 items-start">
+             <div class="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white shrink-0">
+               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+             </div>
+             <div>
+               <h4 class="text-[16px] font-bold text-white mb-1">Apple CarPlay™ & Android Auto™</h4>
+               <p class="text-[13px] text-white/60 leading-relaxed">Compatibilidad inalámbrica o por cable para integrar al máximo tu smartphone al vehículo.</p>
+             </div>
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>

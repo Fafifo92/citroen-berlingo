@@ -1,0 +1,104 @@
+---
+// Comparison.astro — Model comparison table
+const models = [
+  {
+    name: 'Berlingo Talla M',
+    price: 'Desde $99.990.000',
+    length: '4.40 m',
+    cargo: '3.3 m³ a 3.8 m³(Extenso)',
+    payload: '1.000 kg',
+    doors: '1 lateral + 2 traseras',
+    recommended: false,
+  },
+  {
+    name: 'Berlingo Talla XL',
+    price: 'Desde $103.990.000',
+    length: '4.75 m',
+    cargo: '3.9 m³ a 4.4 m³(Extenso)',
+    payload: '1.000 kg',
+    doors: '1 lateral + 2 traseras batientes',
+    recommended: true,
+  },
+];
+
+const rows = [
+  { key: 'price', label: 'Precio Sugerido' },
+  { key: 'length', label: 'Longitud' },
+  { key: 'cargo', label: 'Volumen de Carga' },
+  { key: 'payload', label: 'Carga Útil' },
+  { key: 'doors', label: 'Puertas' },
+];
+---
+
+<section class="py-20 bg-white" id="comparison">
+  <div class="max-w-[1200px] mx-auto px-6">
+    <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] text-[#3B3938] text-center mb-3 uppercase font-bold">Compara Modelos</h2>
+    <p class="text-[17px] text-[#646464] text-center max-w-[600px] mx-auto mb-12 leading-relaxed font-normal normal-case">
+      Elige la configuración que mejor se adapte a tu negocio.
+    </p>
+
+    <!-- Mobile Cards -->
+    <div class="grid grid-cols-1 md:hidden gap-4">
+      {models.map((model) => (
+        <div class={`border p-6 rounded-lg ${model.recommended ? 'border-[#DA291C] ring-1 ring-[#DA291C]/20' : 'border-[#E7E7E7]'}`}>
+          {model.recommended && (
+            <span class="inline-block px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white bg-[#DA291C] rounded-full mb-3">Recomendado</span>
+          )}
+          <h3 class="text-lg font-bold text-[#3B3938] uppercase mb-4">{model.name}</h3>
+          <div class="space-y-3">
+            {rows.map((row) => (
+              <div class="flex justify-between items-center py-2 border-b border-[#E7E7E7] last:border-0">
+                <span class="text-[13px] text-[#646464] font-bold uppercase">{row.label}</span>
+                <span class="text-[14px] text-[#3B3938] font-bold">{model[row.key as keyof typeof model]}</span>
+              </div>
+            ))}
+          </div>
+          <a href="#lead-form" class={`mt-5 w-full ${model.recommended ? 'btn-primary' : 'btn-outline-dark'}`}>
+            Cotizar
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <!-- Desktop Table -->
+    <div class="hidden md:block overflow-x-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr>
+            <th class="text-left p-4 text-[13px] text-[#ababab] uppercase tracking-wider font-bold border-b border-[#E7E7E7] w-48"></th>
+            {models.map((model) => (
+              <th class={`p-4 text-center border-b ${model.recommended ? 'border-[#DA291C] bg-[#DA291C]/[0.03]' : 'border-[#E7E7E7]'}`}>
+                {model.recommended && (
+                  <span class="inline-block px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white bg-[#DA291C] rounded-full mb-2">Recomendado</span>
+                )}
+                <p class="text-lg font-bold text-[#3B3938] uppercase">{model.name}</p>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr class="border-b border-[#E7E7E7] hover:bg-[#F5F6F7]/50 transition-colors">
+              <td class="p-4 text-[13px] text-[#646464] font-bold uppercase tracking-wide">{row.label}</td>
+              {models.map((model) => (
+                <td class={`p-4 text-center text-[15px] text-[#3B3938] ${model.recommended ? 'bg-[#DA291C]/[0.03] font-bold' : ''}`}>
+                  {model[row.key as keyof typeof model]}
+                </td>
+              ))}
+            </tr>
+          ))}
+          <tr>
+            <td class="p-4"></td>
+            {models.map((model) => (
+              <td class={`p-4 text-center ${model.recommended ? 'bg-[#DA291C]/[0.03]' : ''}`}>
+                <a href="#lead-form" class={`${model.recommended ? 'btn-primary' : 'btn-outline-dark'}`}>
+                  Cotizar
+                </a>
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

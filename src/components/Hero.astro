@@ -1,0 +1,175 @@
+---
+// Hero.astro — Immersive hero with directional gradient overlay and sticky bottom tabs
+const base = import.meta.env.BASE_URL;
+
+const tabs = [
+  { id: 'hero', label: 'Inicio' },
+  { id: 'performance', label: 'Rendimiento' },
+  { id: 'modularity', label: 'Modularidad' },
+  { id: 'features', label: 'Ventajas' },
+  { id: 'safety', label: 'Seguridad' },
+  { id: 'technology', label: 'Tecnología' },
+  { id: 'specs', label: 'Especificaciones' },
+  { id: 'comparison', label: 'Modelos' },
+];
+---
+
+<section class="relative min-h-[80vh] md:min-h-[90vh] flex flex-col overflow-hidden" id="hero">
+  <!-- Background Image -->
+  <img
+    src={`${base}images/hero-berlingo.png`}
+    alt="Citroën Berlingo Van - Vista principal"
+    class="absolute inset-0 w-full h-full object-cover object-[center_60%]"
+    loading="eager"
+  />
+
+  <!-- Gradient Overlay: Enhanced readability -->
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[rgba(17,17,17,0.95)] via-[rgba(17,17,17,0.6)] to-transparent md:bg-none md:[background-image:linear-gradient(90deg,rgba(17,17,17,0.95)_0%,rgba(17,17,17,0.6)_45%,rgba(0,0,0,0)_80%)]"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex-1 flex items-center">
+    <div class="max-w-[1200px] mx-auto px-6 w-full pt-28 pb-12 md:pt-0 md:pb-0">
+      <div class="max-w-xl">
+        <!-- Badge -->
+        <span class="inline-block px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-white border border-white/40 mb-6 animate-fade-in">
+          Nuevo modelo 2025
+        </span>
+
+        <!-- Title -->
+        <h1 class="text-[clamp(2.5rem,7.5vw,5rem)] text-white leading-[1.05] mb-4 animate-fade-in-up [text-shadow:0_2px_10px_rgba(0,0,0,0.6)]">
+          Nueva Citroën<br />
+          <span class="text-[#DA291C]">Berlingo Van</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-[clamp(1.125rem,2.5vw,1.5rem)] text-white/95 font-medium mb-8 max-w-md animate-fade-in-up [animation-delay:0.15s] [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
+          ¡Aún más estilo y confort!
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4 items-center animate-fade-in-up [animation-delay:0.3s]">
+          <a href="#lead-form" class="btn-primary" id="hero-cta">
+            Cotizar ahora
+          </a>
+          <a href="#features" class="btn-outline">
+            Descubre más
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Hint (desktop only) -->
+  <div class="hidden md:flex absolute bottom-8 right-8 flex-col items-center gap-2 z-10">
+    <span class="text-[11px] uppercase tracking-[0.15em] text-white/40 [writing-mode:vertical-rl]">Scroll</span>
+    <div class="w-px h-14 bg-gradient-to-b from-white/50 to-transparent animate-scroll-line"></div>
+  </div>
+</section>
+
+<!-- Sticky Navigation Tabs -->
+<div class="sticky top-[72px] z-40 border-t border-b border-white/10 bg-black/80 backdrop-blur-md" id="sticky-tabs">
+  <div class="max-w-[1200px] mx-auto px-6">
+    <nav class="flex overflow-x-auto scrollbar-none relative lg:justify-center w-full" aria-label="Secciones del vehículo" id="tabs-nav">
+      {tabs.map((tab, i) => (
+        <a
+          href={`#${tab.id}`}
+          class={`flex-shrink-0 px-6 py-4 text-[13px] font-bold uppercase tracking-[0.1em] transition-colors relative nav-tab z-10`}
+          data-active={i === 0 ? 'true' : 'false'}
+        >
+          {tab.label}
+        </a>
+      ))}
+      <!-- Floating Slider Pointer -->
+      <div id="tab-slider" class="absolute bottom-0 left-0 h-[3px] bg-[#DA291C] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-20 pointer-events-none" style="width: 0; transform: translateX(0);"></div>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .nav-tab {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .nav-tab:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .nav-tab[data-active="true"] {
+    color: #FFFFFF;
+  }
+</style>
+
+<script>
+  // Intersection Observer for sticky tabs
+  const tabs = document.querySelectorAll('.nav-tab');
+  const slider = document.getElementById('tab-slider');
+  
+  function updateSlider(activeTab) {
+    if (slider && activeTab) {
+      slider.style.width = `${activeTab.offsetWidth}px`;
+      slider.style.transform = `translateX(${activeTab.offsetLeft}px)`;
+    }
+  }
+
+  // Create an array of sections observed
+  const sectionIds = Array.from(tabs).map(tab => {
+    const href = tab.getAttribute('href');
+    return href ? href.substring(1) : '';
+  }).filter(Boolean);
+
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  if (sections.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tabs.forEach(tab => {
+            const href = tab.getAttribute('href')?.substring(1);
+            if (href === entry.target.id) {
+              tab.setAttribute('data-active', 'true');
+              updateSlider(tab);
+            } else {
+              tab.setAttribute('data-active', 'false');
+            }
+          });
+        }
+      });
+    }, { 
+      rootMargin: '-10% 0px -70% 0px', // Ideal offset for sticky header checking
+      threshold: 0 
+    });
+
+    sections.forEach(section => observer.observe(section));
+  }
+
+  // Initial slider setup and window resize tracking
+  window.addEventListener('load', () => {
+    const initialActive = document.querySelector('.nav-tab[data-active="true"]');
+    if (initialActive) updateSlider(initialActive);
+  });
+  
+  window.addEventListener('resize', () => {
+    const active = document.querySelector('.nav-tab[data-active="true"]');
+    if (active) updateSlider(active);
+  });
+
+  // Smooth scroll fix for fixed header
+  tabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = tab.getAttribute('href');
+      if (!href || href === '#') return;
+      
+      const target = document.querySelector(href) as HTMLElement;
+      if (target) {
+        // Scroll to element minus header + tabs offset
+        const yOffset = -120; // 72(header) + ~48(tabs)
+        const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        
+        window.scrollTo({top: y, behavior: 'smooth'});
+      }
+    });
+  });
+</script>

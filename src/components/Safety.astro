@@ -1,0 +1,88 @@
+---
+// Safety.astro — Safety & technology feature showcase
+const base = import.meta.env.BASE_URL;
+
+const techFeatures = [
+  {
+    icon: 'shield',
+    title: 'Frenos ABS, ESP y ASR',
+    description: 'Sistema antibloqueo con repartidor electrónico (EBD), control dinámico de estabilidad y control de tracción.',
+  },
+  {
+    icon: 'airbag',
+    title: 'Doble Airbag Frontal',
+    description: 'Seguridad pasiva avanzada con airbag de doble etapa para el conductor y bolsa lateral para el pasajero.',
+  },
+  {
+    icon: 'chassis',
+    title: 'Acero de Alta Resistencia',
+    description: 'Carrocería reforzada con acero THLE lateral y zonas de deformación programada para absorber impactos.',
+  },
+  {
+    icon: 'warning',
+    title: 'Frenado de Emergencia (AFU)',
+    description: 'Asistencia de frenado de urgencia (AFU/BA) configurada para optimizar la distancia en frenadas bruscas.',
+  },
+  {
+    icon: 'cruise',
+    title: 'Regulador de Velocidad',
+    description: 'Control de crucero y limitador de velocidad integrados para mantener promedios constantes con seguridad.',
+  },
+  {
+    icon: 'parking',
+    title: 'Asistencia de Parqueo',
+    description: 'Freno de estacionamiento electrónico por botón en cabina y sensores de parqueo traseros de precisión.',
+  },
+];
+---
+
+<section class="py-20 bg-white" id="safety">
+  <div class="max-w-[1200px] mx-auto px-6">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-[#DA291C] border border-[#DA291C] border-opacity-30 border-solid rounded-sm">Seguridad y Asistencias</span>
+      <h2 class="text-[clamp(2rem,3.5vw,3rem)] leading-[1.1] font-bold text-[#3B3938] mb-6">
+        Protección<br class="md:hidden"/> Total Certificada.
+      </h2>
+      <p class="text-[1.125rem] text-[#646464] leading-relaxed">
+        Equipamiento homologado internacionalmente para proteger lo que más importa: la tripulación y la carga en cada desplazamiento.
+      </p>
+    </div>
+
+    <!-- Center image with features grid around it -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {techFeatures.map((feat) => (
+        <div class="flex gap-4 p-5 border border-[#E7E7E7] rounded-lg hover:border-[#DA291C]/30 transition-colors duration-300 group">
+          <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-[#DA291C]/[0.06] rounded-full">
+            {feat.icon === 'shield' && (
+              <svg class="w-5 h-5 text-[#DA291C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            )}
+            {feat.icon === 'airbag' && (
+              <svg class="w-5 h-5 text-[#DA291C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="15" r="5"/><path d="M12 10C8 10 4 12 4 16"/><path d="M20 16c0-4-4-6-8-6"/></svg>
+            )}
+            {feat.icon === 'chassis' && (
+              <svg class="w-5 h-5 text-[#DA291C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            )}
+            {feat.icon === 'warning' && (
+              <svg class="w-5 h-5 text-[#DA291C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            )}
+            {feat.icon === 'cruise' && (
+              <svg class="w-5 h-5 text-[#DA291C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            )}
+            {feat.icon === 'parking' && (
+              <svg class="w-5 h-5 text-[#DA291C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
+            )}
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-[#3B3938] uppercase mb-1">{feat.title}</h3>
+            <p class="text-[13px] text-[#646464] leading-relaxed">{feat.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="#lead-form" class="btn-primary">Conocer Más</a>
+    </div>
+  </div>
+</section>

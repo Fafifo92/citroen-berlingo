@@ -1,0 +1,25 @@
+---
+// KeyNumbers.astro — Big numbers/stats impact strip
+const numbers = [
+  { value: '4.4', unit: 'm³', label: 'Volumen máx. de carga (XL)' },
+  { value: '1,000', unit: 'kg', label: 'Capacidad útil (XL)' },
+  { value: '5.1', unit: 'L', label: 'Consumo por cada 100 km' },
+  { value: '16', unit: '', label: 'Ayudas a la conducción' },
+];
+---
+
+<section class="py-16 bg-[#3B3938]" id="key-numbers">
+  <div class="max-w-[1200px] mx-auto px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
+      {numbers.map((n, i) => (
+        <div class={`text-center ${i > 0 ? 'md:border-l md:border-white/10' : ''}`}>
+          <div class="mb-2">
+            <span class="text-[clamp(2.5rem,5vw,3.5rem)] font-bold text-white leading-none">{n.value}</span>
+            {n.unit && <span class="text-lg text-[#DA291C] font-bold ml-1">{n.unit}</span>}
+          </div>
+          <p class="text-[13px] text-white/50 uppercase tracking-[0.08em] font-bold">{n.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

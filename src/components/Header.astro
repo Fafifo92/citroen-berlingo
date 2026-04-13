@@ -1,0 +1,75 @@
+---
+// Header.astro — Stellantis-style sticky header
+---
+
+<header class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-[#E7E7E7] transition-all duration-300" id="header">
+  <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-[72px]">
+    <!-- Logo -->
+    <a href="#" class="flex items-center text-[#3B3938] hover:text-[#DA291C] transition-colors" aria-label="Citroën - Inicio">
+      <svg class="h-8 w-auto" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M22 4L12 20L22 36L32 20L22 4Z" fill="currentColor" opacity="0.9"/>
+        <path d="M16 10L10 20L16 30" stroke="currentColor" stroke-width="2" fill="none"/>
+        <path d="M28 10L34 20L28 30" stroke="currentColor" stroke-width="2" fill="none"/>
+        <text x="44" y="27" font-family="'Citroen Type', sans-serif" font-size="16" font-weight="700" fill="currentColor" letter-spacing="0.1em">CITROËN</text>
+      </svg>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-8" aria-label="Navegación principal">
+      <a href="#gallery" class="text-[13px] font-bold uppercase tracking-[0.08em] text-[#646464] hover:text-[#3B3938] transition-colors relative group">
+        Galería
+        <span class="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-[#DA291C] transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href="#financing" class="text-[13px] font-bold uppercase tracking-[0.08em] text-[#646464] hover:text-[#3B3938] transition-colors relative group">
+        Planes
+        <span class="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-[#DA291C] transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href="#lead-form" class="text-[13px] font-bold uppercase tracking-[0.08em] text-[#646464] hover:text-[#3B3938] transition-colors relative group">
+        Contacto
+        <span class="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-[#DA291C] transition-all duration-300 group-hover:w-full"></span>
+      </a>
+    </nav>
+
+    <!-- Desktop CTA -->
+    <a href="#lead-form" class="btn-primary hidden md:inline-flex !text-[13px] !px-6" id="header-cta">
+      Agendar Cita
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="flex md:hidden flex-col justify-center gap-[5px] w-7 h-7 bg-transparent cursor-pointer p-0 border-none" id="mobile-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span class="block w-full h-[2px] bg-[#3B3938] transition-all duration-300"></span>
+      <span class="block w-full h-[2px] bg-[#3B3938] transition-all duration-300"></span>
+      <span class="block w-full h-[2px] bg-[#3B3938] transition-all duration-300"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Nav -->
+  <div class="hidden absolute top-[72px] left-0 w-full bg-white/[0.98] backdrop-blur-md border-b border-[#E7E7E7]" id="mobile-nav">
+    <nav class="flex flex-col px-6 py-4">
+      <a href="#gallery" class="block py-4 text-[15px] font-bold uppercase tracking-[0.06em] text-[#3B3938] border-b border-[#E7E7E7] hover:text-[#DA291C] transition-colors">Galería</a>
+      <a href="#financing" class="block py-4 text-[15px] font-bold uppercase tracking-[0.06em] text-[#3B3938] border-b border-[#E7E7E7] hover:text-[#DA291C] transition-colors">Planes</a>
+      <a href="#lead-form" class="block py-4 text-[15px] font-bold uppercase tracking-[0.06em] text-[#3B3938] border-b border-[#E7E7E7] hover:text-[#DA291C] transition-colors">Contacto</a>
+      <a href="#lead-form" class="btn-primary mt-4 w-full text-center flex justify-center">Agendar Cita</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-toggle');
+  const nav = document.getElementById('mobile-nav');
+  const links = nav?.querySelectorAll('a');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('!block');
+    nav?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(!!isOpen));
+  });
+
+  links?.forEach(link => {
+    link.addEventListener('click', () => {
+      nav?.classList.add('hidden');
+      nav?.classList.remove('!block');
+      toggle?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

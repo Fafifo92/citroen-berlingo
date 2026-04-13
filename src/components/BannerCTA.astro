@@ -1,0 +1,35 @@
+---
+// BannerCTA.astro — Full-width immersive banner with CTA
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="relative min-h-[60vh] flex items-center overflow-hidden" id="banner-cta">
+  <!-- Background Image -->
+  <img
+    src={`${base}images/gallery-dynamic.png`}
+    alt="Citroën Berlingo Van en movimiento"
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="lazy"
+  />
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-r from-[#111111]/90 via-[#111111]/60 to-transparent md:bg-[linear-gradient(90deg,rgba(17,17,17,0.9)_0%,rgba(17,17,17,0.5)_50%,rgba(0,0,0,0)_80%)]"></div>
+
+  <div class="relative z-10 max-w-[1200px] mx-auto px-6 w-full py-16">
+    <div class="max-w-lg">
+      <span class="inline-block px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-[#DA291C] border border-[#DA291C] rounded-full mb-6">
+        Oferta especial
+      </span>
+      <h2 class="text-[clamp(1.75rem,4vw,2.75rem)] text-white uppercase font-bold leading-[1.05] mb-4">
+        Tu Berlingo Van<br />desde $99.990.000 COP
+      </h2>
+      <p class="text-[17px] text-white/65 leading-relaxed mb-8 max-w-md font-normal normal-case">
+        Aprovecha nuestro plan de financiamiento con tasa preferencial. Enganche desde el 20% y hasta 72 meses para pagar.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#lead-form" class="btn-primary">Solicitar Oferta</a>
+        <a href="#comparison" class="btn-outline">Ver Modelos</a>
+      </div>
+    </div>
+  </div>
+</section>

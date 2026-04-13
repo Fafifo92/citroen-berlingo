@@ -1,0 +1,61 @@
+---
+// index.astro — Landing page principal Citroën Berlingo Van
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import KeyNumbers from '../components/KeyNumbers.astro';
+import Performance from '../components/Performance.astro';
+import Modularity from '../components/Modularity.astro';
+import Features from '../components/Features.astro';
+import Safety from '../components/Safety.astro';
+import Technology from '../components/Technology.astro';
+import Gallery from '../components/Gallery.astro';
+import BannerCTA from '../components/BannerCTA.astro';
+import Specs from '../components/Specs.astro';
+import Comparison from '../components/Comparison.astro';
+import Financing from '../components/Financing.astro';
+import LeadForm from '../components/LeadForm.astro';
+import Footer from '../components/Footer.astro';
+import Lightbox from '../components/Lightbox.astro';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Descubre la nueva Citroën Berlingo Van. Capacidad de carga, eficiencia y confort premium para tu negocio. Solicita tu cotización sin compromiso." />
+    <meta name="keywords" content="Citroën, Berlingo, Van, vehículo comercial, furgoneta, carga, cotización" />
+    <meta name="author" content="Citroën" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Nueva Citroën Berlingo Van | Cotiza Ahora" />
+    <meta property="og:description" content="Capacidad, eficiencia y confort. Descubre la Berlingo Van y solicita tu cotización personalizada." />
+    <meta property="og:locale" content="es_MX" />
+
+    <link rel="icon" type="image/svg+xml" href="/citroen-berlingo/favicon.svg" />
+    <title>Nueva Citroën Berlingo Van | Cotiza Ahora</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <Hero />
+      <KeyNumbers />
+      <Performance />      <!-- NUEVA: Rendimiento y Motor -->
+      <Modularity />       <!-- NUEVA: Cabina Extenso y Carga -->
+      <Features />
+      <Safety />
+      <Technology />       <!-- NUEVA: Dashboard y Conectividad -->
+      <Gallery />
+      <BannerCTA />
+      <Specs />
+      <Comparison />
+      <Financing />
+      <LeadForm />
+    </main>
+    <Footer />
+    <Lightbox />
+  </body>
+</html>

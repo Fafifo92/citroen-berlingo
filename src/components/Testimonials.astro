@@ -1,0 +1,56 @@
+---
+// Testimonials.astro — Customer review cards
+const testimonials = [
+  {
+    name: 'Carlos Mendoza',
+    role: 'Gerente de Logística, FreshKo',
+    text: 'La Berlingo Van transformó nuestras entregas urbanas. El volumen de carga y el consumo reducido nos permiten hacer más rutas con menos gasto. Es una inversión que se paga sola.',
+    rating: 5,
+  },
+  {
+    name: 'Patricia Reyes',
+    role: 'Dueña, Florería La Rosa',
+    text: 'Necesitaba un vehículo que protegiera la mercancía y fuera fácil de manejar en la ciudad. La cabina es muy cómoda y las puertas traseras facilitan la carga enormemente.',
+    rating: 5,
+  },
+  {
+    name: 'Roberto Jiménez',
+    role: 'Técnico de Mantenimiento',
+    text: 'Llevo más de 80,000 km con mi Berlingo y sigue impecable. Los costos de mantenimiento son bajos y el motor diésel es increíblemente eficiente en ruta.',
+    rating: 4,
+  },
+];
+---
+
+<section class="py-20 bg-[#F5F6F7]" id="testimonials">
+  <div class="max-w-[1200px] mx-auto px-6">
+    <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] text-[#3B3938] text-center mb-3 uppercase font-bold">Lo Que Dicen Nuestros Clientes</h2>
+    <p class="text-[17px] text-[#646464] text-center max-w-[600px] mx-auto mb-12 leading-relaxed font-normal normal-case">
+      Profesionales que ya confían en la Berlingo Van para su negocio.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {testimonials.map((t) => (
+        <article class="bg-white border border-[#E7E7E7] p-8 flex flex-col group hover:border-[#DA291C]/30 transition-colors duration-300">
+          <!-- Stars -->
+          <div class="flex gap-1 mb-5">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <svg class={`w-4 h-4 ${i < t.rating ? 'text-[#DA291C]' : 'text-[#E7E7E7]'}`} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            ))}
+          </div>
+
+          <!-- Quote -->
+          <p class="text-[15px] text-[#646464] leading-[1.7] mb-6 flex-1">"{t.text}"</p>
+
+          <!-- Author -->
+          <div class="pt-5 border-t border-[#E7E7E7]">
+            <p class="text-sm font-bold text-[#3B3938] uppercase">{t.name}</p>
+            <p class="text-[13px] text-[#ababab] mt-0.5">{t.role}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
