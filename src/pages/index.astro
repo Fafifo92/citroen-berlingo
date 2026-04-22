@@ -141,5 +141,22 @@ const rcpSrc = recaptchaSiteKey
         observer.observe(heroSection);
       }
     </script>
+
+    <!-- Scroll Reveal: IntersectionObserver — tiny, no deps, runs once per element -->
+    <script>
+      // Mark body so CSS activates the hidden initial state
+      document.body.classList.add('reveal-ready');
+
+      const revealIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            revealIO.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+      document.querySelectorAll('[data-reveal]').forEach((el) => revealIO.observe(el));
+    </script>
   </body>
 </html>

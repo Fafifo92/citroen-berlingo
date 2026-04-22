@@ -27,7 +27,7 @@ const painPoints = [
   <div class="max-w-[1200px] mx-auto px-6">
 
     <!-- Header -->
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
       <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-[#DA291C] border border-[#DA291C]/30 bg-[#DA291C]/5">
         El desafío de tu negocio
       </span>
@@ -39,8 +39,8 @@ const painPoints = [
 
     <!-- Pain Points Grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-      {painPoints.map((pain) => (
-        <div class="bg-white border border-[#E7E7E7] p-6 rounded-lg text-center hover:border-[#DA291C]/30 transition-colors duration-300 group">
+      {painPoints.map((pain, i) => (
+        <div class="bg-white border border-[#E7E7E7] p-6 rounded-lg text-center hover:border-[#DA291C]/30 transition-colors duration-300 group" data-reveal="fade-up" style={`--reveal-delay: ${i * 0.1}s`}>
           <div class="w-14 h-14 mx-auto rounded-full bg-[#DA291C]/[0.06] flex items-center justify-center mb-4">
             {pain.icon === 'box' && (
               <svg class="w-7 h-7 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
@@ -61,7 +61,7 @@ const painPoints = [
     </div>
 
     <!-- Solution Box -->
-    <div class="relative bg-[#3B3938] rounded-lg overflow-hidden">
+    <div class="relative bg-[#3B3938] rounded-lg overflow-hidden" data-reveal="fade-up" style="--reveal-delay: 0.1s">
       <div class="absolute inset-0 bg-gradient-to-r from-[#DA291C]/10 to-transparent pointer-events-none"></div>
       <div class="grid lg:grid-cols-[2fr_3fr] gap-8 items-center relative z-10">
 

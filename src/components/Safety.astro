@@ -46,7 +46,7 @@ const services = [
   <div class="max-w-[1200px] mx-auto px-6">
 
     <!-- Header -->
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
       <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-white border border-white/30 rounded-sm">
         Servicio Posventa
       </span>
@@ -58,8 +58,8 @@ const services = [
 
     <!-- Services Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-      {services.map((service) => (
-        <div class="bg-white/5 border border-white/10 rounded-lg p-7 hover:border-[#DA291C]/40 transition-colors duration-300 group">
+      {services.map((service, i) => (
+        <div class="bg-white/5 border border-white/10 rounded-lg p-7 hover:border-[#DA291C]/40 transition-colors duration-300 group" data-reveal="fade-up" style={`--reveal-delay: ${i * 0.1}s`}>
           <!-- Icon -->
           <div class="w-12 h-12 rounded-full bg-[#DA291C]/10 flex items-center justify-center mb-5">
             {service.icon === 'tools' && (
@@ -95,7 +95,7 @@ const services = [
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
       <!-- Agenda Cita -->
-      <div class="bg-white/5 border border-white/10 rounded-lg p-8">
+      <div class="bg-white/5 border border-white/10 rounded-lg p-8" data-reveal="fade-left">
         <div class="flex items-center gap-3 mb-5">
           <div class="w-10 h-10 rounded-full bg-[#DA291C] flex items-center justify-center shrink-0">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -118,7 +118,7 @@ const services = [
       </div>
 
       <!-- Pregunta Repuestos -->
-      <div class="bg-white/5 border border-white/10 rounded-lg p-8">
+      <div class="bg-white/5 border border-white/10 rounded-lg p-8" data-reveal="fade-right">
         <div class="flex items-center gap-3 mb-5">
           <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
             <svg class="w-5 h-5 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6m11-11h-6M7 12H1m16.5-6.5l-4.24 4.24M6.74 17.26l-4.24 4.24m15 0l-4.24-4.24M6.74 6.74L2.5 2.5"/></svg>

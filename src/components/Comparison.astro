@@ -25,7 +25,7 @@ const colors = [
 
 <section class="py-20 bg-white" id="comparison">
   <div class="max-w-[1200px] mx-auto px-6">
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
       <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-[#DA291C] border border-[#DA291C] border-opacity-30 border-solid rounded-sm">Versiones</span>
       <h2 class="text-[clamp(2rem,3.5vw,3rem)] leading-[1.1] font-bold text-[#3B3938] mb-6">
         Elige la Berlingo que mejor<br class="md:hidden"/> se adapta a tu operación
@@ -34,8 +34,8 @@ const colors = [
 
     <!-- Models Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-      {models.map((model) => (
-        <div class={`border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg ${model.recommended ? 'border-[#DA291C] ring-2 ring-[#DA291C]/15 relative' : 'border-[#E7E7E7]'}`}>
+      {models.map((model, i) => (
+        <div class={`border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg ${model.recommended ? 'border-[#DA291C] ring-2 ring-[#DA291C]/15 relative' : 'border-[#E7E7E7]'}`} data-reveal="fade-up" style={`--reveal-delay: ${i * 0.15}s`}>
           {model.recommended && (
             <div class="absolute top-4 right-4 z-10">
               <span class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white bg-[#DA291C] rounded-full">Recomendado</span>
@@ -78,7 +78,7 @@ const colors = [
     </div>
 
     <!-- Dimensions Box (estilo ficha con silueta + medidas) -->
-    <div class="bg-white border border-[#E7E7E7] rounded-lg p-8 lg:p-10">
+    <div class="bg-white border border-[#E7E7E7] rounded-lg p-8 lg:p-10" data-reveal="fade-up">
       <h3 class="text-lg font-bold text-[#3B3938] uppercase mb-6 text-center">Dimensiones exteriores</h3>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 

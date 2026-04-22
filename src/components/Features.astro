@@ -43,7 +43,7 @@ const features = [
 <section class="py-20 bg-white" id="features">
   <div class="max-w-[1200px] mx-auto px-6">
     <!-- Section Header -->
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
       <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-[#DA291C] border border-[#DA291C] border-opacity-30 border-solid rounded-sm">Beneficios Principales</span>
       <h2 class="text-[clamp(2rem,3.5vw,3rem)] leading-[1.1] font-bold text-[#3B3938] mb-6">
         Todo lo que tu negocio<br class="md:hidden"/> necesita para crecer
@@ -52,8 +52,8 @@ const features = [
 
     <!-- Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {features.map((feature) => (
-        <article class="border border-[#E7E7E7] rounded-lg p-8 transition-all duration-300 hover:border-[#DA291C]/30 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] group relative overflow-hidden">
+      {features.map((feature, i) => (
+        <article class="border border-[#E7E7E7] rounded-lg p-8 transition-all duration-300 hover:border-[#DA291C]/30 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] group relative overflow-hidden" data-reveal="fade-up" style={`--reveal-delay: ${i * 0.1}s`}>
           <!-- Top accent bar on hover -->
           <div class="absolute top-0 left-0 w-full h-[3px] bg-[#DA291C] scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></div>
 

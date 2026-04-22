@@ -47,7 +47,9 @@ const parsed = {
 };
 
 function enc(p: string): string {
-  return p.split('/').map(encodeURIComponent).join('/');
+  // encodeURIComponent encodes commas as %2C which some dev servers fail to decode;
+  // commas are valid unencoded in URL path segments, so restore them.
+  return p.split('/').map(s => encodeURIComponent(s).replace(/%2C/gi, ',')).join('/');
 }
 
 const originalHref = `${base}images/${enc(cleaned)}`;

@@ -65,7 +65,7 @@ const images = [
     src: p("controles de aire acondicionado con iluminación.jpg"),
     alt: "Controles de aire acondicionado digital",
     label: "A/C digital",
-    wide: false,
+    wide: true,
   },
   {
     src: p("PHOTO- Motor.jpg"),
@@ -80,16 +80,28 @@ const images = [
     wide: false,
   },
   {
-    src: p("Compartimiento de atras de la citroen, la cabina de carga .jpg"),
-    alt: "Compartimiento de carga trasera",
-    label: "Zona de carga",
+    src: p("vista lateral con la puerta unica abierta.jpg"),
+    alt: "Vista lateral con puerta corrediza abierta",
+    label: "Puerta deslizante",
     wide: false,
   },
   {
-    src: p("vista lateral, frontal donde se ve la camnioneta con la compuerta laboral abierta junto con traactomulas.jpg"),
-    alt: "Berlingo trabajando junto a tractomulas",
-    label: "En operación",
-    wide: true,
+    src: p("asientos delanteros.jpg"),
+    alt: "Asientos delanteros ergonómicos",
+    label: "Asientos",
+    wide: false,
+  },
+  {
+    src: p("PHOTO-foto trasera con vista lateral derecha.jpg"),
+    alt: "Vista trasera con perspectiva lateral derecha",
+    label: "Trasera lateral",
+    wide: false,
+  },
+  {
+    src: p("Foto de la Berlingo diagonal de frente.jpg"),
+    alt: "Berlingo Van diagonal de frente",
+    label: "Diagonal frente",
+    wide: false,
   },
 ];
 ---
@@ -98,11 +110,14 @@ const images = [
   <div class="max-w-[1200px] mx-auto px-6">
     <h2
       class="text-[clamp(1.75rem,4vw,2.5rem)] text-[#3B3938] text-center mb-3 uppercase font-bold"
+      data-reveal="fade-up"
     >
       Galería Berlingo Van
     </h2>
     <p
       class="text-[17px] text-[#646464] text-center max-w-[600px] mx-auto mb-12 leading-relaxed font-normal normal-case"
+      data-reveal="fade-up"
+      style="--reveal-delay: 0.1s"
     >
       Conoce la Berlingo Van desde cada ángulo. Haz clic en cualquier
       imagen para ampliarla.
