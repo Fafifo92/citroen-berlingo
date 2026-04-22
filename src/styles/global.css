@@ -8,11 +8,11 @@
 /* ── Custom Fonts (Citroen Type) ── */
 @font-face {
   font-family: 'Citroen Type';
-  src: url('/citroen-berlingo/fonts/citroen_regular-webfont.eot');
-  src: url('/citroen-berlingo/fonts/citroen_regular-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/citroen-berlingo/fonts/citroen_regular-webfont.woff') format('woff'),
-       url('/citroen-berlingo/fonts/citroen_regular-webfont.ttf') format('truetype'),
-       url('/citroen-berlingo/fonts/citroen_regular-webfont.svg#citroenregular') format('svg');
+  src: url('/fonts/citroen_regular-webfont.eot');
+  src: url('/fonts/citroen_regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/citroen_regular-webfont.woff') format('woff'),
+       url('/fonts/citroen_regular-webfont.ttf') format('truetype'),
+       url('/fonts/citroen_regular-webfont.svg#citroenregular') format('svg');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -20,11 +20,11 @@
 
 @font-face {
   font-family: 'Citroen Type';
-  src: url('/citroen-berlingo/fonts/citroen_italic-webfont.eot');
-  src: url('/citroen-berlingo/fonts/citroen_italic-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/citroen-berlingo/fonts/citroen_italic-webfont.woff') format('woff'),
-       url('/citroen-berlingo/fonts/citroen_italic-webfont.ttf') format('truetype'),
-       url('/citroen-berlingo/fonts/citroen_italic-webfont.svg#citroenitalic') format('svg');
+  src: url('/fonts/citroen_italic-webfont.eot');
+  src: url('/fonts/citroen_italic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/citroen_italic-webfont.woff') format('woff'),
+       url('/fonts/citroen_italic-webfont.ttf') format('truetype'),
+       url('/fonts/citroen_italic-webfont.svg#citroenitalic') format('svg');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -32,11 +32,11 @@
 
 @font-face {
   font-family: 'Citroen Type';
-  src: url('/citroen-berlingo/fonts/citroen_bold-webfont.eot');
-  src: url('/citroen-berlingo/fonts/citroen_bold-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/citroen-berlingo/fonts/citroen_bold-webfont.woff') format('woff'),
-       url('/citroen-berlingo/fonts/citroen_bold-webfont.ttf') format('truetype'),
-       url('/citroen-berlingo/fonts/citroen_bold-webfont.svg#citroenbold') format('svg');
+  src: url('/fonts/citroen_bold-webfont.eot');
+  src: url('/fonts/citroen_bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/citroen_bold-webfont.woff') format('woff'),
+       url('/fonts/citroen_bold-webfont.ttf') format('truetype'),
+       url('/fonts/citroen_bold-webfont.svg#citroenbold') format('svg');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -44,11 +44,11 @@
 
 @font-face {
   font-family: 'Citroen Type';
-  src: url('/citroen-berlingo/fonts/citroen_bold_italic-webfont.eot');
-  src: url('/citroen-berlingo/fonts/citroen_bold_italic-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/citroen-berlingo/fonts/citroen_bold_italic-webfont.woff') format('woff'),
-       url('/citroen-berlingo/fonts/citroen_bold_italic-webfont.ttf') format('truetype'),
-       url('/citroen-berlingo/fonts/citroen_bold_italic-webfont.svg#citroenbold_italic') format('svg');
+  src: url('/fonts/citroen_bold_italic-webfont.eot');
+  src: url('/fonts/citroen_bold_italic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/citroen_bold_italic-webfont.woff') format('woff'),
+       url('/fonts/citroen_bold_italic-webfont.ttf') format('truetype'),
+       url('/fonts/citroen_bold_italic-webfont.svg#citroenbold_italic') format('svg');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
@@ -56,11 +56,11 @@
 
 @font-face {
   font-family: 'Citroen Type';
-  src: url('/citroen-berlingo/fonts/citroen_light-webfont.eot');
-  src: url('/citroen-berlingo/fonts/citroen_light-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/citroen-berlingo/fonts/citroen_light-webfont.woff') format('woff'),
-       url('/citroen-berlingo/fonts/citroen_light-webfont.ttf') format('truetype'),
-       url('/citroen-berlingo/fonts/citroen_light-webfont.svg#citroenlight') format('svg');
+  src: url('/fonts/citroen_light-webfont.eot');
+  src: url('/fonts/citroen_light-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/citroen_light-webfont.woff') format('woff'),
+       url('/fonts/citroen_light-webfont.ttf') format('truetype'),
+       url('/fonts/citroen_light-webfont.svg#citroenlight') format('svg');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -68,11 +68,11 @@
 
 @font-face {
   font-family: 'Citroen Type';
-  src: url('/citroen-berlingo/fonts/citroen_light_italic-webfont.eot');
-  src: url('/citroen-berlingo/fonts/citroen_light_italic-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/citroen-berlingo/fonts/citroen_light_italic-webfont.woff') format('woff'),
-       url('/citroen-berlingo/fonts/citroen_light_italic-webfont.ttf') format('truetype'),
-       url('/citroen-berlingo/fonts/citroen_light_italic-webfont.svg#citroenlight_italic') format('svg');
+  src: url('/fonts/citroen_light_italic-webfont.eot');
+  src: url('/fonts/citroen_light_italic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/citroen_light_italic-webfont.woff') format('woff'),
+       url('/fonts/citroen_light_italic-webfont.ttf') format('truetype'),
+       url('/fonts/citroen_light_italic-webfont.svg#citroenlight_italic') format('svg');
   font-weight: 300;
   font-style: italic;
   font-display: swap;

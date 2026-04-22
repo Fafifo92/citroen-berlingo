@@ -1,0 +1,75 @@
+---
+// ResponsiveImage.astro — <picture> con srcset WebP (480/800/1200/1600)
+// Requiere que scripts/optimize-images.mjs haya generado las variantes en
+// public/images/optimized/<mirror>/<name>-<w>.webp.
+//
+// Props:
+//   src: ruta del original, p.ej. "images/FOTOS BERLINGO/PHOTO- Vista lateral.jpg"
+//   alt: texto alternativo
+//   class: clases aplicadas al <img>
+//   sizes: atributo sizes (default "100vw")
+//   loading / decoding / fetchpriority: standard <img> attrs
+//   widths: subset opcional de anchos (por defecto todos los generados)
+
+export interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  sizes?: string;
+  loading?: 'eager' | 'lazy';
+  decoding?: 'sync' | 'async' | 'auto';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  widths?: number[];
+  lightbox?: boolean;
+  label?: string;
+}
+
+const {
+  src,
+  alt,
+  class: className = '',
+  sizes = '100vw',
+  loading = 'lazy',
+  decoding = 'async',
+  fetchpriority,
+  widths = [480, 800, 1200, 1600],
+  lightbox = false,
+  label,
+} = Astro.props as Props;
+
+const base = import.meta.env.BASE_URL;
+
+// Normalize src: strip leading slash & base
+const cleaned = src.replace(/^\/+/, '').replace(/^images\//, '');
+const parsed = {
+  dir: cleaned.includes('/') ? cleaned.slice(0, cleaned.lastIndexOf('/')) : '',
+  name: cleaned.slice(cleaned.lastIndexOf('/') + 1).replace(/\.[^.]+$/, ''),
+};
+
+function enc(p: string): string {
+  return p.split('/').map(encodeURIComponent).join('/');
+}
+
+const originalHref = `${base}images/${enc(cleaned)}`;
+const optimizedDir = parsed.dir ? `${base}images/optimized/${enc(parsed.dir)}/` : `${base}images/optimized/`;
+const nameEnc = encodeURIComponent(parsed.name);
+
+const srcset = widths.map((w) => `${optimizedDir}${nameEnc}-${w}.webp ${w}w`).join(', ');
+const fallbackSrc = `${optimizedDir}${nameEnc}-800.webp`;
+---
+
+<picture style="display:contents">
+  <source type="image/webp" srcset={srcset} sizes={sizes} />
+  <img
+    src={fallbackSrc}
+    alt={alt}
+    class={className}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+    data-lightbox={lightbox ? '' : undefined}
+    data-src={lightbox ? originalHref : undefined}
+    data-label={label}
+    onerror={`this.onerror=null;this.src='${originalHref}';`}
+  />
+</picture>

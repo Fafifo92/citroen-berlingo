@@ -1,61 +1,145 @@
 ---
-// Hero.astro — Immersive hero with directional gradient overlay and sticky bottom tabs
+// Hero.astro — Hero with content left + lead form right
+import ResponsiveImage from './ResponsiveImage.astro';
 const base = import.meta.env.BASE_URL;
 
 const tabs = [
   { id: 'hero', label: 'Inicio' },
-  { id: 'performance', label: 'Rendimiento' },
-  { id: 'modularity', label: 'Modularidad' },
-  { id: 'features', label: 'Ventajas' },
-  { id: 'safety', label: 'Seguridad' },
-  { id: 'technology', label: 'Tecnología' },
-  { id: 'specs', label: 'Especificaciones' },
-  { id: 'comparison', label: 'Modelos' },
+  { id: 'problem-solution', label: 'Solución' },
+  { id: 'features', label: 'Beneficios' },
+  { id: 'comparison', label: 'Versiones' },
+  { id: 'posventa', label: 'Posventa' },
+  { id: 'dealers', label: 'Concesionarios' },
+  { id: 'gallery', label: 'Galería' },
 ];
 ---
 
-<section class="relative min-h-[80vh] md:min-h-[90vh] flex flex-col overflow-hidden" id="hero">
-  <!-- Background Image -->
-  <img
-    src={`${base}images/hero-berlingo.png`}
+<section class="relative min-h-[90vh] md:min-h-screen flex flex-col overflow-hidden" id="hero">
+  <!-- Background Image — Foto real PHOTO- -->
+  <ResponsiveImage
+    src="FOTOS BERLINGO/PHOTO- foto frontal desde un lado derecho.jpg"
     alt="Citroën Berlingo Van - Vista principal"
-    class="absolute inset-0 w-full h-full object-cover object-[center_60%]"
+    class="absolute inset-0 w-full h-full object-cover object-[60%_center]"
     loading="eager"
+    fetchpriority="high"
+    sizes="100vw"
   />
 
-  <!-- Gradient Overlay: Enhanced readability -->
-  <div class="absolute inset-0 bg-black/40"></div>
-  <div class="absolute inset-0 bg-gradient-to-t from-[rgba(17,17,17,0.95)] via-[rgba(17,17,17,0.6)] to-transparent md:bg-none md:[background-image:linear-gradient(90deg,rgba(17,17,17,0.95)_0%,rgba(17,17,17,0.6)_45%,rgba(0,0,0,0)_80%)]"></div>
+  <!-- Gradient Overlay — más oscuro para legibilidad del formulario -->
+  <div class="absolute inset-0 bg-black/70"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[rgba(17,17,17,0.98)] via-[rgba(17,17,17,0.6)] to-[rgba(17,17,17,0.3)] xl:bg-none xl:[background-image:linear-gradient(90deg,rgba(17,17,17,0.97)_0%,rgba(17,17,17,0.8)_55%,rgba(17,17,17,0.6)_100%)]"></div>
 
   <!-- Content -->
   <div class="relative z-10 flex-1 flex items-center">
-    <div class="max-w-[1200px] mx-auto px-6 w-full pt-28 pb-12 md:pt-0 md:pb-0">
-      <div class="max-w-xl">
-        <!-- Badge -->
-        <span class="inline-block px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-white border border-white/40 mb-6 animate-fade-in">
-          Nuevo modelo 2025
-        </span>
+    <div class="max-w-[1200px] mx-auto px-6 w-full pt-28 pb-20 xl:pt-32 xl:pb-24">
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-16 items-center">
 
-        <!-- Title -->
-        <h1 class="text-[clamp(2.5rem,7.5vw,5rem)] text-white leading-[1.05] mb-4 animate-fade-in-up [text-shadow:0_2px_10px_rgba(0,0,0,0.6)]">
-          Nueva Citroën<br />
-          <span class="text-[#DA291C]">Berlingo Van</span>
-        </h1>
+        <!-- Left: Content -->
+        <div>
+          <!-- Badge -->
+          <span class="inline-block px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-white border border-white/40 mb-6 animate-fade-in">
+            Citroën Berlingo Van
+          </span>
 
-        <!-- Subtitle -->
-        <p class="text-[clamp(1.125rem,2.5vw,1.5rem)] text-white/95 font-medium mb-8 max-w-md animate-fade-in-up [animation-delay:0.15s] [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
-          ¡Aún más estilo y confort!
-        </p>
+          <!-- Title -->
+          <h1 class="text-[clamp(2rem,6vw,3.5rem)] text-white leading-[1.1] mb-4 animate-fade-in-up [text-shadow:0_2px_10px_rgba(0,0,0,0.6)]">
+            La van que hace crecer<br />
+            <span class="text-[#DA291C]">tu negocio todos los días</span>
+          </h1>
 
-        <!-- CTAs -->
-        <div class="flex flex-wrap gap-4 items-center animate-fade-in-up [animation-delay:0.3s]">
-          <a href="#lead-form" class="btn-primary" id="hero-cta">
-            Cotizar ahora
-          </a>
-          <a href="#features" class="btn-outline">
-            Descubre más
-          </a>
+          <!-- Subtitle -->
+          <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 font-medium mb-6 max-w-lg animate-fade-in-up [animation-delay:0.1s] [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
+            Más capacidad, menor costo operativo y el respaldo que necesitas para no parar
+          </p>
+
+          <!-- Price -->
+          <div class="mb-8 animate-fade-in-up [animation-delay:0.15s]">
+            <span class="text-[13px] text-white/50 uppercase tracking-[0.1em] font-bold block mb-1">Precio desde</span>
+            <span class="text-[clamp(1.75rem,4vw,2.5rem)] font-bold text-white">$99.990.000</span>
+          </div>
+
+          <!-- 4 Bullets -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 animate-fade-in-up [animation-delay:0.2s]">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[#DA291C] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-[14px] text-white/90">Hasta 4,4 m³ de volumen de carga</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[#DA291C] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-[14px] text-white/90">Motor turbodiésel de máxima eficiencia</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[#DA291C] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-[14px] text-white/90">Confort tipo automóvil, trabaja cómodo, rinde más</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[#DA291C] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-[14px] text-white/90">Espacio para 3 pasajeros (incluido conductor)</span>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap gap-4 items-center animate-fade-in-up [animation-delay:0.3s]">
+            <a href={`${base}docs/ficha-tecnica-berlingo.pdf`} download class="btn-outline" id="download-ficha">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              Descargar Ficha Técnica
+            </a>
+          </div>
         </div>
+
+        <!-- Right: Lead Form -->
+        <div class="animate-fade-in-up [animation-delay:0.25s]">
+          <div class="bg-[#111111]/90 backdrop-blur-md border border-white/10 p-8 rounded-lg shadow-2xl">
+            <h3 class="text-xl font-bold text-white uppercase mb-2">Cotiza hoy y recibe asesoría inmediata</h3>
+            <p class="text-[14px] text-white/60 mb-6">Completa tus datos y un asesor te contactará.</p>
+
+            <form id="hero-contact-form" novalidate>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label for="hero-firstname" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Nombre</label>
+                  <input type="text" id="hero-firstname" name="firstname" class="hero-form-input" placeholder="Ej. Juan" required autocomplete="given-name" />
+                </div>
+                <div>
+                  <label for="hero-lastname" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Apellido</label>
+                  <input type="text" id="hero-lastname" name="lastname" class="hero-form-input" placeholder="Ej. Pérez" required autocomplete="family-name" />
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="hero-phone" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Teléfono</label>
+                <input type="tel" id="hero-phone" name="phone" class="hero-form-input" placeholder="Ej. 310 123 4567" required autocomplete="tel" />
+              </div>
+              <div class="mb-4">
+                <label for="hero-email" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Correo</label>
+                <input type="email" id="hero-email" name="email" class="hero-form-input" placeholder="Ej. juan@empresa.com" required autocomplete="email" />
+              </div>
+              <div class="mb-4">
+                <label for="hero-city" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Ciudad</label>
+                <input type="text" id="hero-city" name="city" class="hero-form-input" placeholder="Ej. Bogotá" required />
+              </div>
+              <div class="mb-4">
+                <label for="hero-version" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Versión de interés</label>
+                <select id="hero-version" name="version" class="hero-form-input" required>
+                  <option value="">Selecciona una versión</option>
+                  <option value="1-puerta">Berlingo 1 Puerta Lateral</option>
+                  <option value="doble-puerta">Berlingo Doble Puerta Lateral</option>
+                  <option value="indeciso">No estoy seguro, necesito asesoría</option>
+                </select>
+              </div>
+              <div class="mb-6">
+                <label for="hero-message" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Mensaje <span class="text-white/40 normal-case font-normal">(opcional)</span></label>
+                <textarea id="hero-message" name="message" rows="2" class="hero-form-input !h-auto !py-2.5" placeholder="Cuéntanos sobre tu operación o preguntas específicas"></textarea>
+              </div>
+              <button type="submit" class="btn-primary w-full" id="hero-submit-btn">
+                Cotizar Ahora
+              </button>
+              <p class="text-[11px] text-white/40 text-center mt-4">
+                Al enviar, aceptas nuestra <a href="#" class="text-[#DA291C] underline underline-offset-2">Política de Privacidad</a>.
+                Protegido por reCAPTCHA (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-white/30 underline underline-offset-2">privacidad</a> · <a href="https://policies.google.com/terms" target="_blank" rel="noopener" class="text-white/30 underline underline-offset-2">términos</a>).
+              </p>
+            </form>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -68,8 +152,13 @@ const tabs = [
 </section>
 
 <!-- Sticky Navigation Tabs -->
-<div class="sticky top-[72px] z-40 border-t border-b border-white/10 bg-black/80 backdrop-blur-md" id="sticky-tabs">
-  <div class="max-w-[1200px] mx-auto px-6">
+<div class="sticky top-[72px] z-40 border-t border-b border-white/10 bg-black/80 backdrop-blur-md relative" id="sticky-tabs">
+
+  <!-- Fade Overlays -->
+  <div class="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-black via-black/60 to-transparent z-30 pointer-events-none lg:hidden"></div>
+  <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-black via-black/60 to-transparent z-30 pointer-events-none lg:hidden"></div>
+
+  <div class="max-w-[1200px] mx-auto px-6 relative">
     <nav class="flex overflow-x-auto scrollbar-none relative lg:justify-center w-full" aria-label="Secciones del vehículo" id="tabs-nav">
       {tabs.map((tab, i) => (
         <a
@@ -80,7 +169,6 @@ const tabs = [
           {tab.label}
         </a>
       ))}
-      <!-- Floating Slider Pointer -->
       <div id="tab-slider" class="absolute bottom-0 left-0 h-[3px] bg-[#DA291C] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-20 pointer-events-none" style="width: 0; transform: translateX(0);"></div>
     </nav>
   </div>
@@ -99,21 +187,58 @@ const tabs = [
   .nav-tab[data-active="true"] {
     color: #FFFFFF;
   }
+
+  .hero-form-input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .hero-form-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+  .hero-form-input:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+  }
+  select.hero-form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='1 1 6 6 11 1'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+  }
+  select.hero-form-input option {
+    background: #1a1a1a;
+    color: #fff;
+  }
 </style>
 
 <script>
-  // Intersection Observer for sticky tabs
+  // Tab navigation
   const tabs = document.querySelectorAll('.nav-tab');
   const slider = document.getElementById('tab-slider');
-  
-  function updateSlider(activeTab) {
+  const navContainer = document.getElementById('tabs-nav');
+
+  function updateSlider(activeTab: Element) {
     if (slider && activeTab) {
-      slider.style.width = `${activeTab.offsetWidth}px`;
-      slider.style.transform = `translateX(${activeTab.offsetLeft}px)`;
+      slider.style.width = `${(activeTab as HTMLElement).offsetWidth}px`;
+      slider.style.transform = `translateX(${(activeTab as HTMLElement).offsetLeft}px)`;
+
+      if (navContainer) {
+        const scrollLeft = (activeTab as HTMLElement).offsetLeft - (navContainer.clientWidth / 2) + ((activeTab as HTMLElement).clientWidth / 2);
+        navContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+      }
     }
   }
 
-  // Create an array of sections observed
   const sectionIds = Array.from(tabs).map(tab => {
     const href = tab.getAttribute('href');
     return href ? href.substring(1) : '';
@@ -136,40 +261,46 @@ const tabs = [
           });
         }
       });
-    }, { 
-      rootMargin: '-10% 0px -70% 0px', // Ideal offset for sticky header checking
-      threshold: 0 
+    }, {
+      rootMargin: '-10% 0px -70% 0px',
+      threshold: 0
     });
 
-    sections.forEach(section => observer.observe(section));
+    sections.forEach(section => observer.observe(section!));
   }
 
-  // Initial slider setup and window resize tracking
   window.addEventListener('load', () => {
     const initialActive = document.querySelector('.nav-tab[data-active="true"]');
     if (initialActive) updateSlider(initialActive);
   });
-  
+
   window.addEventListener('resize', () => {
     const active = document.querySelector('.nav-tab[data-active="true"]');
     if (active) updateSlider(active);
   });
 
-  // Smooth scroll fix for fixed header
   tabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
       e.preventDefault();
       const href = tab.getAttribute('href');
       if (!href || href === '#') return;
-      
+
       const target = document.querySelector(href) as HTMLElement;
       if (target) {
-        // Scroll to element minus header + tabs offset
-        const yOffset = -120; // 72(header) + ~48(tabs)
+        const yOffset = -120;
         const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        
         window.scrollTo({top: y, behavior: 'smooth'});
       }
     });
+  });
+
+  // Hero form submit — wired to Zapier via form-handler.ts
+  import { submitForm } from './form-handler';
+
+  const heroForm = document.getElementById('hero-contact-form') as HTMLFormElement;
+  const heroBtn  = document.getElementById('hero-submit-btn') as HTMLButtonElement;
+  heroForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await submitForm(heroForm, 'cotizacion', heroBtn);
   });
 </script>

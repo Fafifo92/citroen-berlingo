@@ -2,21 +2,30 @@
 // index.astro — Landing page principal Citroën Berlingo Van
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import KeyNumbers from '../components/KeyNumbers.astro';
 import Performance from '../components/Performance.astro';
-import Modularity from '../components/Modularity.astro';
 import Features from '../components/Features.astro';
+import Comparison from '../components/Comparison.astro';
 import Safety from '../components/Safety.astro';
 import Technology from '../components/Technology.astro';
 import Gallery from '../components/Gallery.astro';
-import BannerCTA from '../components/BannerCTA.astro';
-import Specs from '../components/Specs.astro';
-import Comparison from '../components/Comparison.astro';
-import Financing from '../components/Financing.astro';
 import LeadForm from '../components/LeadForm.astro';
 import Footer from '../components/Footer.astro';
 import Lightbox from '../components/Lightbox.astro';
 import '../styles/global.css';
+
+// Env vars are baked in at build time (PUBLIC_ prefix exposes them to the client)
+const recaptchaVersion  = (import.meta.env.PUBLIC_RECAPTCHA_VERSION  ?? 'v3') as 'v2' | 'v3';
+const recaptchaSiteKey  = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY  ?? '';
+const zapierCotizacion  = import.meta.env.PUBLIC_ZAPIER_WEBHOOK_COTIZACION ?? '';
+const zapierCita        = import.meta.env.PUBLIC_ZAPIER_WEBHOOK_CITA       ?? '';
+const zapierRepuestos   = import.meta.env.PUBLIC_ZAPIER_WEBHOOK_REPUESTOS  ?? '';
+
+// Build the reCAPTCHA script URL based on version
+const rcpSrc = recaptchaSiteKey
+  ? recaptchaVersion === 'v3'
+    ? `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`
+    : `https://www.google.com/recaptcha/api.js?onload=__rcpOnload&render=explicit`
+  : null;
 ---
 
 <!doctype html>
@@ -24,38 +33,113 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Descubre la nueva Citroën Berlingo Van. Capacidad de carga, eficiencia y confort premium para tu negocio. Solicita tu cotización sin compromiso." />
-    <meta name="keywords" content="Citroën, Berlingo, Van, vehículo comercial, furgoneta, carga, cotización" />
-    <meta name="author" content="Citroën" />
+    <meta name="description" content="Citroën Berlingo Van: la van que hace crecer tu negocio. Hasta 4,4 m³ de carga, motor turbodiésel eficiente y confort tipo automóvil. Desde $99.990.000. Cotiza ahora." />
+    <meta name="keywords" content="Citroën, Berlingo, Van, vehículo comercial, furgoneta, carga, cotización, Colombia" />
+    <meta name="author" content="Citroën Colombia" />
     <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#DA291C" />
+
+    <!-- Preload hero image -->
+    <link rel="preload" as="image" href="/images/optimized/FOTOS BERLINGO/PHOTO- foto frontal desde un lado derecho-1600.webp" imagesrcset="/images/optimized/FOTOS%20BERLINGO/PHOTO-%20foto%20frontal%20desde%20un%20lado%20derecho-800.webp 800w, /images/optimized/FOTOS%20BERLINGO/PHOTO-%20foto%20frontal%20desde%20un%20lado%20derecho-1200.webp 1200w, /images/optimized/FOTOS%20BERLINGO/PHOTO-%20foto%20frontal%20desde%20un%20lado%20derecho-1600.webp 1600w" imagesizes="100vw" type="image/webp" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Nueva Citroën Berlingo Van | Cotiza Ahora" />
-    <meta property="og:description" content="Capacidad, eficiencia y confort. Descubre la Berlingo Van y solicita tu cotización personalizada." />
-    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content="Citroën Berlingo Van | La van que hace crecer tu negocio" />
+    <meta property="og:description" content="Más capacidad, menor costo operativo y el respaldo que necesitas para no parar. Desde $99.990.000." />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:image" content="/images/optimized/FOTOS BERLINGO/PHOTO- Vista lateral-1200.webp" />
 
-    <link rel="icon" type="image/svg+xml" href="/citroen-berlingo/favicon.svg" />
-    <title>Nueva Citroën Berlingo Van | Cotiza Ahora</title>
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Citroën Berlingo Van | Cotiza Ahora" />
+    <meta name="twitter:description" content="La van que hace crecer tu negocio. Hasta 4,4 m³, turbodiésel eficiente. Desde $99.990.000." />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Citroën Berlingo Van | La van que hace crecer tu negocio | Cotiza</title>
+
+    <!-- reCAPTCHA — loads conditionally based on version and site key -->
+    {rcpSrc && <script is:inline src={rcpSrc} async defer></script>}
+
+    <!-- Site config — baked in at build time, read by form-handler.ts at runtime -->
+    <script define:vars={{ zapierCotizacion, zapierCita, zapierRepuestos, recaptchaSiteKey, recaptchaVersion }} is:inline>
+      window.__SITE_CONFIG__ = {
+        zapier: {
+          cotizacion: zapierCotizacion,
+          cita:       zapierCita,
+          repuestos:  zapierRepuestos,
+        },
+        recaptcha: { siteKey: recaptchaSiteKey, version: recaptchaVersion },
+      };
+
+      // v2 only: initialize visible widgets in every form once reCAPTCHA loads.
+      // Called by ?onload=__rcpOnload in the script URL above.
+      window.__rcpOnload = function () {
+        if (!window.__SITE_CONFIG__.recaptcha.siteKey) return;
+        window.__recaptchaWidgets = new WeakMap();
+
+        var siteKey = window.__SITE_CONFIG__.recaptcha.siteKey;
+        var forms = [
+          document.getElementById('hero-contact-form'),
+        ].concat(Array.from(document.querySelectorAll('form.posventa-form')))
+         .filter(Boolean);
+
+        forms.forEach(function (form) {
+          var container = document.createElement('div');
+          container.style.cssText = 'margin-bottom:12px;display:flex;justify-content:center;';
+          var submitBtn = form.querySelector('button[type="submit"]');
+          if (submitBtn) form.insertBefore(container, submitBtn);
+          else form.appendChild(container);
+
+          var widgetId = window.grecaptcha.render(container, {
+            sitekey: siteKey,
+            theme:   'dark',
+            size:    'normal',
+          });
+          window.__recaptchaWidgets.set(form, widgetId);
+        });
+      };
+    </script>
   </head>
   <body>
     <Header />
     <main>
       <Hero />
-      <KeyNumbers />
-      <Performance />      <!-- NUEVA: Rendimiento y Motor -->
-      <Modularity />       <!-- NUEVA: Cabina Extenso y Carga -->
-      <Features />
-      <Safety />
-      <Technology />       <!-- NUEVA: Dashboard y Conectividad -->
-      <Gallery />
-      <BannerCTA />
-      <Specs />
-      <Comparison />
-      <Financing />
-      <LeadForm />
+      <Performance />    <!-- Problema → Solución -->
+      <Features />       <!-- Beneficios Principales -->
+      <Comparison />     <!-- Versiones -->
+      <Safety />         <!-- Servicio Posventa -->
+      <Technology />     <!-- Red de Concesionarios -->
+      <Gallery />        <!-- Galería de fotos al final -->
     </main>
     <Footer />
     <Lightbox />
+
+    <!-- Floating CTA Button -->
+    <a href="#hero" id="floating-cta" class="fixed bottom-6 right-6 z-50 btn-primary shadow-lg shadow-[#DA291C]/25 hidden items-center gap-2 !px-6 !py-3" aria-label="Cotiza ahora">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Cotiza Ahora
+    </a>
+
+    <script>
+      // Show floating CTA after scrolling past hero
+      const floatingCTA = document.getElementById('floating-cta');
+      const heroSection = document.getElementById('hero');
+
+      if (floatingCTA && heroSection) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              floatingCTA.classList.add('hidden');
+              floatingCTA.classList.remove('flex');
+            } else {
+              floatingCTA.classList.remove('hidden');
+              floatingCTA.classList.add('flex');
+            }
+          });
+        }, { threshold: 0.1 });
+
+        observer.observe(heroSection);
+      }
+    </script>
   </body>
 </html>

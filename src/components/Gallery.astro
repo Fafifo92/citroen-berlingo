@@ -1,25 +1,95 @@
 ---
 // Gallery.astro — Bento grid gallery with lightbox support
-const base = import.meta.env.BASE_URL;
+import ResponsiveImage from './ResponsiveImage.astro';
+
+// src se pasa relativo a /public/images (sin prefijo "images/")
+const folder = "FOTOS BERLINGO/";
+const p = (name: string) => folder + name;
 
 const images = [
   {
-    src: `${base}images/gallery-exterior.png`,
-    alt: "Citroën Berlingo Van - Vista exterior lateral",
-    label: "Exterior",
+    src: p("PHOTO- Vista lateral.jpg"),
+    alt: "Citroën Berlingo Van - Vista lateral completa",
+    label: "Vista lateral",
     wide: true,
   },
   {
-    src: `${base}images/gallery-cargo.png`,
-    alt: "Citroën Berlingo Van - Puertas traseras abiertas y zona de carga",
-    label: "Carga",
+    src: p("PHOTO- Vista frontal capo cerrado.jpg"),
+    alt: "Vista frontal con logo Citroën",
+    label: "Frontal",
     wide: false,
   },
   {
-    src: `${base}images/gallery-cabin.png`,
-    alt: "Citroën Berlingo Van - Interior de cabina y tablero",
-    label: "Cabina",
+    src: p("PHOTO- foto frontal desde un lado derecho.jpg"),
+    alt: "Diagonal frontal derecha",
+    label: "Diagonal derecha",
     wide: false,
+  },
+  {
+    src: p("PHOTO- vista trasera de la berlingo.jpg"),
+    alt: "Vista trasera Berlingo",
+    label: "Trasera",
+    wide: false,
+  },
+  {
+    src: p("PHOTO- vista trasera con las puertas abiertas.jpg"),
+    alt: "Acceso de carga con puertas traseras abiertas",
+    label: "Carga trasera",
+    wide: true,
+  },
+  {
+    src: p("persona sacando cargamento por la doblepuerta trasera de la berlingo.jpg"),
+    alt: "Persona descargando por la doble puerta trasera",
+    label: "Carga en operación",
+    wide: false,
+  },
+  {
+    src: p("PHOTO-camina de conductor y acompañante.jpg"),
+    alt: "Cabina de conductor y acompañante",
+    label: "Cabina",
+    wide: true,
+  },
+  {
+    src: p("PHOTO- Vista del timon.jpg"),
+    alt: "Timón y puesto de conducción",
+    label: "Puesto de mando",
+    wide: false,
+  },
+  {
+    src: p("pantalla de radio encendida.jpg"),
+    alt: "Pantalla táctil multimedia encendida",
+    label: "Pantalla 10\"",
+    wide: false,
+  },
+  {
+    src: p("controles de aire acondicionado con iluminación.jpg"),
+    alt: "Controles de aire acondicionado digital",
+    label: "A/C digital",
+    wide: false,
+  },
+  {
+    src: p("PHOTO- Motor.jpg"),
+    alt: "Motor turbodiésel 1.5L",
+    label: "Motor 1.5L HDi",
+    wide: false,
+  },
+  {
+    src: p("PHOTO-Guantera del vehiculo.jpg"),
+    alt: "Guantera amplia del vehículo",
+    label: "Guantera",
+    wide: false,
+  },
+  {
+    src: p("Compartimiento de atras de la citroen, la cabina de carga .jpg"),
+    alt: "Compartimiento de carga trasera",
+    label: "Zona de carga",
+    wide: false,
+  },
+  {
+    src: p("vista lateral, frontal donde se ve la camnioneta con la compuerta laboral abierta junto con traactomulas.jpg"),
+    alt: "Berlingo trabajando junto a tractomulas",
+    label: "En operación",
+    wide: true,
   },
 ];
 ---
@@ -29,55 +99,91 @@ const images = [
     <h2
       class="text-[clamp(1.75rem,4vw,2.5rem)] text-[#3B3938] text-center mb-3 uppercase font-bold"
     >
-      Galería
+      Galería Berlingo Van
     </h2>
     <p
       class="text-[17px] text-[#646464] text-center max-w-[600px] mx-auto mb-12 leading-relaxed font-normal normal-case"
     >
-      Descubre cada ángulo de la nueva Berlingo Van. Haz clic en cualquier
+      Conoce la Berlingo Van desde cada ángulo. Haz clic en cualquier
       imagen para ampliarla.
     </p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-      {
-        images.map((img) => (
-          <figure
-            class={`relative overflow-hidden group ${img.wide ? "sm:col-span-2" : ""}`}
-          >
-            <div
-              class={`relative overflow-hidden rounded-lg bg-[#E7E7E7] ${img.wide ? "aspect-[21/9] sm:aspect-[21/9]" : "aspect-[16/10]"} lg:aspect-auto lg:h-[280px]`}
+    <!-- Gallery grid with collapse -->
+    <div class="relative">
+      <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 overflow-hidden" style="max-height: 620px;">
+        {
+          images.map((img) => (
+            <figure
+              class={`relative overflow-hidden group ${img.wide ? "sm:col-span-2" : ""}`}
             >
-              <img
-                src={img.src}
-                alt={img.alt}
-                data-lightbox
-                data-label={img.label}
-                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 cursor-zoom-in"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-between p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <span class="text-[13px] font-bold uppercase tracking-[0.12em] text-white px-4 py-1.5 border border-white/40">
-                  {img.label}
-                </span>
-                <svg
-                  class="w-6 h-6 text-white/70"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                  <line x1="11" y1="8" x2="11" y2="14" />
-                  <line x1="8" y1="11" x2="14" y2="11" />
-                </svg>
+              <div
+                class={`relative overflow-hidden rounded-lg bg-[#E7E7E7] ${img.wide ? "aspect-[21/9] sm:aspect-[21/9]" : "aspect-[16/10]"} lg:aspect-auto lg:h-[260px]`}
+              >
+                <ResponsiveImage
+                  src={img.src}
+                  alt={img.alt}
+                  label={img.label}
+                  lightbox={true}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                  class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 cursor-zoom-in"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-between p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                  <span class="text-[13px] font-bold uppercase tracking-[0.12em] text-white px-4 py-1.5 border border-white/40">
+                    {img.label}
+                  </span>
+                  <svg
+                    class="w-6 h-6 text-white/70"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    <line x1="11" y1="8" x2="11" y2="14" />
+                    <line x1="8" y1="11" x2="14" y2="11" />
+                  </svg>
+                </div>
               </div>
-            </div>
-          </figure>
-        ))
-      }
+            </figure>
+          ))
+        }
+      </div>
+
+      <!-- Gradient fade to bg color -->
+      <div id="gallery-fade" class="absolute bottom-0 left-0 right-0 h-52 bg-gradient-to-t from-[#F5F6F7] via-[#F5F6F7]/80 to-transparent pointer-events-none"></div>
+
+      <!-- Show more button -->
+      <div id="gallery-expand-wrap" class="absolute bottom-4 left-0 right-0 flex justify-center z-10">
+        <button id="gallery-expand-btn" class="btn-primary gap-2 shadow-lg">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          Ver todas las fotos
+        </button>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  const btn = document.getElementById('gallery-expand-btn');
+  const grid = document.getElementById('gallery-grid');
+  const fade = document.getElementById('gallery-fade');
+  const wrap = document.getElementById('gallery-expand-wrap');
+
+  btn?.addEventListener('click', () => {
+    if (!grid || !fade || !wrap) return;
+    // Animate max-height smoothly
+    grid.style.transition = 'max-height 0.8s ease';
+    grid.style.maxHeight = grid.scrollHeight + 'px';
+    fade.style.transition = 'opacity 0.4s ease';
+    fade.style.opacity = '0';
+    setTimeout(() => {
+      fade.style.display = 'none';
+      wrap.style.display = 'none';
+      grid.style.maxHeight = 'none';
+      grid.style.overflow = 'visible';
+    }, 800);
+  });
+</script>

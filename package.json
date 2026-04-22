@@ -7,6 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "optimize:images": "node optimize-images.mjs",
+    "prebuild": "node optimize-images.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -15,5 +17,8 @@
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.5",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
   }
 }

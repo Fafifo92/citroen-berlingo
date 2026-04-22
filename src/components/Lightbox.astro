@@ -53,7 +53,8 @@
   function initLightbox() {
     const triggers = document.querySelectorAll('[data-lightbox]');
     images = Array.from(triggers).map((el) => ({
-      src: (el as HTMLImageElement).src || el.getAttribute('data-src') || '',
+      // Prefer data-src (original hi-res) over el.src (which may be a compressed variant)
+      src: el.getAttribute('data-src') || (el as HTMLImageElement).src || '',
       alt: (el as HTMLImageElement).alt || '',
       label: el.getAttribute('data-label') || '',
     }));
