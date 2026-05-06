@@ -1,5 +1,6 @@
 ---
 // Safety.astro — Servicio Posventa section
+import PrivacyConsent from './PrivacyConsent.astro';
 const base = import.meta.env.BASE_URL;
 
 const services = [
@@ -47,32 +48,32 @@ const services = [
 
     <!-- Header -->
     <div class="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
-      <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-white border border-white/30 rounded-sm">
-        Servicio Posventa
-      </span>
       <h2 class="text-[clamp(2rem,4vw,3rem)] leading-[1.1] font-bold text-white mb-4">
-        Tu negocio no se detiene,<br/>
-        <span class="text-[#DA291C]">tu Berlingo tampoco</span>
+        Servicio Posventa
       </h2>
     </div>
 
     <!-- Services Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
       {services.map((service, i) => (
-        <div class="bg-white/5 border border-white/10 rounded-lg p-7 hover:border-[#DA291C]/40 transition-colors duration-300 group" data-reveal="fade-up" style={`--reveal-delay: ${i * 0.1}s`}>
+        <div class="bg-white/5 border border-white/10 rounded-lg p-7 hover:border-[#da281c]/40 transition-colors duration-300 group" data-reveal="fade-up" style={`--reveal-delay: ${i * 0.1}s`}>
           <!-- Icon -->
-          <div class="w-12 h-12 rounded-full bg-[#DA291C]/10 flex items-center justify-center mb-5">
+          <div class="w-12 h-12 rounded-full bg-[#da281c]/10 flex items-center justify-center mb-5">
             {service.icon === 'tools' && (
-              <svg class="w-6 h-6 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              <!-- lucide:wrench -->
+              <svg class="w-6 h-6 text-[#da281c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
             )}
             {service.icon === 'parts' && (
-              <svg class="w-6 h-6 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <!-- lucide:cog -->
+              <svg class="w-6 h-6 text-[#da281c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
             )}
             {service.icon === 'maintenance' && (
-              <svg class="w-6 h-6 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <!-- lucide:calendar-clock -->
+              <svg class="w-6 h-6 text-[#da281c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h5"/><path d="M17.5 17.5 16 16.3V14"/><circle cx="16" cy="16" r="6"/></svg>
             )}
             {service.icon === 'support' && (
-              <svg class="w-6 h-6 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <!-- lucide:headset -->
+              <svg class="w-6 h-6 text-[#da281c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 0 1 18 0v6a3 3 0 0 1-3 3h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h4"/><path d="M3 11v6a3 3 0 0 0 3 3h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3"/></svg>
             )}
           </div>
 
@@ -80,7 +81,7 @@ const services = [
           <ul class="space-y-2.5">
             {service.items.map((item) => (
               <li class="flex items-start gap-2.5 text-[13px] text-white/60 leading-relaxed">
-                <svg class="w-3.5 h-3.5 text-[#DA291C] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="w-3.5 h-3.5 text-[#da281c] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 {item}
@@ -92,12 +93,12 @@ const services = [
     </div>
 
     <!-- Dual Form Area: Agenda cita + Pregunta repuestos -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
       <!-- Agenda Cita -->
       <div class="bg-white/5 border border-white/10 rounded-lg p-8" data-reveal="fade-left">
         <div class="flex items-center gap-3 mb-5">
-          <div class="w-10 h-10 rounded-full bg-[#DA291C] flex items-center justify-center shrink-0">
+          <div class="w-10 h-10 rounded-full bg-[#da281c] flex items-center justify-center shrink-0">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           </div>
           <div>
@@ -105,14 +106,61 @@ const services = [
             <p class="text-[12px] text-white/50">Mantenimiento y servicio técnico</p>
           </div>
         </div>
-        <form class="posventa-form" data-form="cita" novalidate>
+        <form class="posventa-form" data-form="cita">
           <div class="grid grid-cols-2 gap-3 mb-3">
-            <input type="text" name="firstname" class="pv-input" placeholder="Nombre" required />
-            <input type="text" name="lastname" class="pv-input" placeholder="Apellido" required />
+            <input type="text" name="firstname" class="pv-input" placeholder="Nombres" required />
+            <input type="text" name="lastname" class="pv-input" placeholder="Apellidos" required />
           </div>
-          <input type="tel" name="phone" class="pv-input mb-3" placeholder="Teléfono" required />
-          <input type="text" name="plate" class="pv-input mb-3" placeholder="Placa del vehículo (opcional)" />
-          <input type="text" name="city" class="pv-input mb-4" placeholder="Ciudad" required />
+          <input type="email" name="email" class="pv-input mb-3" placeholder="Email" required />
+          <input type="tel" name="phone" class="pv-input mb-3" placeholder="Número de teléfono" required />
+          <div class="grid grid-cols-2 gap-3 mb-3">
+            <select name="document_type" class="pv-input" required>
+              <option value="">Tipo de documento</option>
+              <option value="CC">Cédula de ciudadanía</option>
+              <option value="CE">Cédula de extranjería</option>
+              <option value="NIT">NIT</option>
+              <option value="PA">Pasaporte</option>
+            </select>
+            <input type="text" name="document_number" class="pv-input" placeholder="Documento de identidad" required />
+          </div>
+          <div class="grid grid-cols-2 gap-3 mb-3">
+            <select name="city" class="pv-input" required>
+              <option value="">Ciudad</option>
+              <option>Bogotá</option>
+              <option>Medellín</option>
+              <option>Cali</option>
+              <option>Barranquilla</option>
+              <option>Cartagena</option>
+              <option>Bucaramanga</option>
+              <option>Pereira</option>
+              <option>Manizales</option>
+              <option>Otra</option>
+            </select>
+            <select name="workshop" class="pv-input" required>
+              <option value="">Selecciona un taller</option>
+              <option>Taller Bogotá Norte</option>
+              <option>Taller Bogotá Sur</option>
+              <option>Taller Medellín</option>
+              <option>Taller Cali</option>
+              <option>Taller Barranquilla</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-3 gap-3 mb-3">
+            <input type="text" name="model" class="pv-input" placeholder="Modelo" required />
+            <input type="number" name="model_year" class="pv-input" placeholder="Año" min="1990" max="2030" required />
+            <input type="number" name="kilometraje" class="pv-input" placeholder="Kilometraje" min="0" required />
+          </div>
+          <select name="service_type" class="pv-input mb-3" required>
+            <option value="">Tipo de servicio</option>
+            <option>Colisión</option>
+            <option>Servicio express</option>
+            <option>Reparaciones mecánicas</option>
+            <option>Mantenimiento preventivo</option>
+            <option>Recall</option>
+            <option>Garantía</option>
+          </select>
+          <textarea name="comments" rows="3" class="pv-input !h-auto py-3 mb-2" placeholder="Comentarios"></textarea>
+          <PrivacyConsent id="cita-privacy" variant="dark" />
           <button type="submit" class="btn-primary w-full">Agendar Cita</button>
         </form>
       </div>
@@ -121,21 +169,55 @@ const services = [
       <div class="bg-white/5 border border-white/10 rounded-lg p-8" data-reveal="fade-right">
         <div class="flex items-center gap-3 mb-5">
           <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
-            <svg class="w-5 h-5 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6m11-11h-6M7 12H1m16.5-6.5l-4.24 4.24M6.74 17.26l-4.24 4.24m15 0l-4.24-4.24M6.74 6.74L2.5 2.5"/></svg>
+            <!-- lucide:package-search -->
+            <svg class="w-5 h-5 text-[#da281c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0"/><path d="m7.5 4.27 9 5.15"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/><circle cx="18.5" cy="15.5" r="2.5"/><path d="M20.27 17.27 22 19"/></svg>
           </div>
           <div>
             <h3 class="text-[18px] font-bold text-white uppercase leading-tight">Pregunta tus repuestos</h3>
             <p class="text-[12px] text-white/50">Consulta disponibilidad y cotización</p>
           </div>
         </div>
-        <form class="posventa-form" data-form="repuestos" novalidate>
+        <form class="posventa-form" data-form="repuestos">
+          <input type="tel" name="phone" class="pv-input mb-3" placeholder="Número de teléfono" required />
           <div class="grid grid-cols-2 gap-3 mb-3">
-            <input type="text" name="firstname" class="pv-input" placeholder="Nombre" required />
-            <input type="text" name="lastname" class="pv-input" placeholder="Apellido" required />
+            <select name="document_type" class="pv-input" required>
+              <option value="">Tipo de documento</option>
+              <option value="CC">Cédula de ciudadanía</option>
+              <option value="CE">Cédula de extranjería</option>
+              <option value="NIT">NIT</option>
+              <option value="PA">Pasaporte</option>
+            </select>
+            <input type="text" name="document_number" class="pv-input" placeholder="Documento de identidad" required />
           </div>
-          <input type="email" name="email" class="pv-input mb-3" placeholder="Correo" required />
-          <input type="tel" name="phone" class="pv-input mb-3" placeholder="Teléfono" required />
-          <textarea name="part" rows="2" class="pv-input !h-auto py-3 mb-4" placeholder="¿Qué repuesto necesitas?" required></textarea>
+          <select name="city" class="pv-input mb-3" required>
+            <option value="">Ciudad</option>
+            <option>Bogotá</option>
+            <option>Medellín</option>
+            <option>Cali</option>
+            <option>Barranquilla</option>
+            <option>Cartagena</option>
+            <option>Bucaramanga</option>
+            <option>Pereira</option>
+            <option>Manizales</option>
+            <option>Otra</option>
+          </select>
+          <div class="grid grid-cols-2 gap-3 mb-3">
+            <input type="text" name="model" class="pv-input" placeholder="Modelo" required />
+            <input type="number" name="model_year" class="pv-input" placeholder="Año modelo" min="1990" max="2030" required />
+          </div>
+          <select name="part_category" class="pv-input mb-3" required>
+            <option value="">¿Qué repuesto desea cotizar?</option>
+            <option>Componentes de cabina</option>
+            <option>Componentes eléctricos</option>
+            <option>Kit de reparación de motor</option>
+            <option>Kit de embragues</option>
+            <option>Kit de filtros</option>
+            <option>Refrigerantes</option>
+            <option>Sistema de suspensión</option>
+            <option>Tren de potencia</option>
+          </select>
+          <textarea name="message" rows="3" class="pv-input !h-auto py-3 mb-2" placeholder="Mensaje"></textarea>
+          <PrivacyConsent id="repuestos-privacy" variant="dark" />
           <button type="submit" class="btn-outline w-full">Solicitar Repuesto</button>
         </form>
       </div>
@@ -164,6 +246,15 @@ const services = [
     border-color: rgba(255, 255, 255, 0.5);
     background: rgba(255, 255, 255, 0.1);
   }
+  select.pv-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='1 1 6 6 11 1'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+  }
+  select.pv-input option { background: #1a1a1a; color: #fff; }
+  textarea.pv-input { line-height: 1.5; }
 </style>
 
 <script>
@@ -176,6 +267,10 @@ const services = [
     if (!btn) return;
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
       await submitForm(form, formType, btn);
     });
   });

@@ -26,7 +26,7 @@ const colors = [
 <section class="py-20 bg-white" id="comparison">
   <div class="max-w-[1200px] mx-auto px-6">
     <div class="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
-      <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-[#DA291C] border border-[#DA291C] border-opacity-30 border-solid rounded-sm">Versiones</span>
+      <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-[#da281c] border border-[#da281c] border-opacity-30 border-solid rounded-sm">Versiones</span>
       <h2 class="text-[clamp(2rem,3.5vw,3rem)] leading-[1.1] font-bold text-[#3B3938] mb-6">
         Elige la Berlingo que mejor<br class="md:hidden"/> se adapta a tu operación
       </h2>
@@ -35,10 +35,10 @@ const colors = [
     <!-- Models Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       {models.map((model, i) => (
-        <div class={`border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg ${model.recommended ? 'border-[#DA291C] ring-2 ring-[#DA291C]/15 relative' : 'border-[#E7E7E7]'}`} data-reveal="fade-up" style={`--reveal-delay: ${i * 0.15}s`}>
+        <div class={`border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg ${model.recommended ? 'border-[#da281c] ring-2 ring-[#da281c]/15 relative' : 'border-[#E7E7E7]'}`} data-reveal="fade-up" style={`--reveal-delay: ${i * 0.15}s`}>
           {model.recommended && (
             <div class="absolute top-4 right-4 z-10">
-              <span class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white bg-[#DA291C] rounded-full">Recomendado</span>
+              <span class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white bg-[#da281c] rounded-full">Recomendado</span>
             </div>
           )}
 
@@ -96,15 +96,15 @@ const colors = [
         <div class="grid grid-cols-3 gap-3">
           <div class="bg-[#F8F9FA] border border-[#E7E7E7] rounded-md py-5 px-3 text-center">
             <p class="text-[11px] text-[#646464] uppercase tracking-[0.08em] font-bold mb-2">Longitud total</p>
-            <div class="text-[1.5rem] md:text-[1.75rem] font-bold text-[#DA291C] leading-none">4.753<span class="text-sm text-[#3B3938] ml-1">mm</span></div>
+            <div class="text-[1.5rem] md:text-[1.75rem] font-bold text-[#da281c] leading-none"><span class="counter" data-counter-target="4753" data-counter-decimals="0" data-counter-thousands=".">0</span><span class="text-sm text-[#3B3938] ml-1">mm</span></div>
           </div>
           <div class="bg-[#F8F9FA] border border-[#E7E7E7] rounded-md py-5 px-3 text-center">
             <p class="text-[11px] text-[#646464] uppercase tracking-[0.08em] font-bold mb-2">Altura total</p>
-            <div class="text-[1.5rem] md:text-[1.75rem] font-bold text-[#DA291C] leading-none">1.860<span class="text-sm text-[#3B3938] ml-1">mm</span></div>
+            <div class="text-[1.5rem] md:text-[1.75rem] font-bold text-[#da281c] leading-none"><span class="counter" data-counter-target="1860" data-counter-decimals="0" data-counter-thousands=".">0</span><span class="text-sm text-[#3B3938] ml-1">mm</span></div>
           </div>
           <div class="bg-[#F8F9FA] border border-[#E7E7E7] rounded-md py-5 px-3 text-center">
             <p class="text-[11px] text-[#646464] uppercase tracking-[0.08em] font-bold mb-2">Ancho total</p>
-            <div class="text-[1.5rem] md:text-[1.75rem] font-bold text-[#DA291C] leading-none">1.921<span class="text-sm text-[#3B3938] ml-1">mm</span></div>
+            <div class="text-[1.5rem] md:text-[1.75rem] font-bold text-[#da281c] leading-none"><span class="counter" data-counter-target="1921" data-counter-decimals="0" data-counter-thousands=".">0</span><span class="text-sm text-[#3B3938] ml-1">mm</span></div>
           </div>
         </div>
       </div>
@@ -112,19 +112,19 @@ const colors = [
       <!-- Capacidades internas -->
       <div class="mt-8 pt-8 border-t border-[#E7E7E7] grid grid-cols-2 md:grid-cols-4 gap-6">
         <div class="text-center">
-          <div class="text-[1.75rem] font-bold text-[#3B3938] leading-none mb-1">4,4<span class="text-base text-[#DA291C] font-bold ml-1">m³</span></div>
+          <div class="text-[1.75rem] font-bold text-[#3B3938] leading-none mb-1"><span class="counter" data-counter-target="4.4" data-counter-decimals="1" data-counter-decimal-sep=",">0</span><span class="text-base text-[#da281c] font-bold ml-1">m³</span></div>
           <p class="text-[11px] text-[#646464] uppercase tracking-wide font-bold">Volumen de carga</p>
         </div>
         <div class="text-center">
-          <div class="text-[1.75rem] font-bold text-[#3B3938] leading-none mb-1">3,44<span class="text-base text-[#DA291C] font-bold ml-1">m</span></div>
+          <div class="text-[1.75rem] font-bold text-[#3B3938] leading-none mb-1"><span class="counter" data-counter-target="3.44" data-counter-decimals="2" data-counter-decimal-sep=",">0</span><span class="text-base text-[#da281c] font-bold ml-1">m</span></div>
           <p class="text-[11px] text-[#646464] uppercase tracking-wide font-bold">Longitud de carga</p>
         </div>
         <div class="text-center">
-          <div class="text-[1.75rem] font-bold text-[#3B3938] leading-none mb-1">1.000<span class="text-base text-[#DA291C] font-bold ml-1">kg</span></div>
+          <div class="text-[1.75rem] font-bold text-[#3B3938] leading-none mb-1"><span class="counter" data-counter-target="1000" data-counter-decimals="0" data-counter-thousands=".">0</span><span class="text-base text-[#da281c] font-bold ml-1">kg</span></div>
           <p class="text-[11px] text-[#646464] uppercase tracking-wide font-bold">Carga útil</p>
         </div>
         <div class="text-center">
-          <div class="text-[1.75rem] font-bold text-[#3B3938] leading-none mb-1">3<span class="text-base text-[#DA291C] font-bold ml-1">plazas</span></div>
+          <div class="text-[1.75rem] font-bold text-[#3B3938] leading-none mb-1"><span class="counter" data-counter-target="3" data-counter-decimals="0">0</span><span class="text-base text-[#da281c] font-bold ml-1">plazas</span></div>
           <p class="text-[11px] text-[#646464] uppercase tracking-wide font-bold">Incluido conductor</p>
         </div>
       </div>
@@ -132,3 +132,56 @@ const colors = [
 
   </div>
 </section>
+
+<script>
+  // Animated counters: when a .counter enters viewport, count from 0 to target.
+  function formatValue(value: number, decimals: number, decimalSep: string, thousands: string) {
+    const fixed = value.toFixed(decimals);
+    const [intPart, decPart] = fixed.split('.');
+    let intFmt = intPart;
+    if (thousands) {
+      intFmt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousands);
+    }
+    return decimals > 0 ? `${intFmt}${decimalSep}${decPart}` : intFmt;
+  }
+
+  const counters = document.querySelectorAll<HTMLElement>('.counter');
+  const animate = (el: HTMLElement) => {
+    if (el.dataset.counted === '1') return;
+    el.dataset.counted = '1';
+    const target = parseFloat(el.dataset.counterTarget || '0');
+    const decimals = parseInt(el.dataset.counterDecimals || '0', 10);
+    const decimalSep = el.dataset.counterDecimalSep || '.';
+    const thousands = el.dataset.counterThousands || '';
+    const duration = 1600;
+    const start = performance.now();
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / duration, 1);
+      const value = target * easeOut(t);
+      el.textContent = formatValue(value, decimals, decimalSep, thousands);
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = formatValue(target, decimals, decimalSep, thousands);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animate(entry.target as HTMLElement);
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    counters.forEach((c) => io.observe(c));
+  } else {
+    counters.forEach((c) => animate(c));
+  }
+</script>

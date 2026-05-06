@@ -1,0 +1,127 @@
+---
+// FeedbackModal.astro — Shared success / error dialog for all forms.
+// Triggered from form-handler.ts via:
+//   window.dispatchEvent(new CustomEvent('form:feedback', { detail: {...} }))
+---
+
+<div id="feedback-modal" class="feedback-modal" role="dialog" aria-modal="true" aria-labelledby="feedback-modal-title" hidden>
+  <div class="feedback-modal__backdrop" data-feedback-close></div>
+  <div class="feedback-modal__panel" role="document">
+    <button type="button" class="feedback-modal__close" data-feedback-close aria-label="Cerrar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div class="feedback-modal__icon" data-feedback-icon>
+      <!-- Replaced at runtime -->
+    </div>
+
+    <h3 id="feedback-modal-title" class="feedback-modal__title" data-feedback-title>Mensaje enviado</h3>
+    <p class="feedback-modal__message" data-feedback-message>
+      Hemos recibido tus datos. Un asesor se contactará contigo lo más pronto posible.
+    </p>
+
+    <div class="feedback-modal__footer">
+      <button type="button" class="btn-primary" data-feedback-close>Entendido</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  type FeedbackKind = 'success' | 'error';
+  type FormKind = 'cotizacion' | 'cita' | 'repuestos';
+
+  interface FeedbackDetail {
+    kind: FeedbackKind;
+    formType: FormKind;
+    /** Optional override message; otherwise uses defaults below. */
+    message?: string;
+  }
+
+  const COPY: Record<FeedbackKind, Record<FormKind, { title: string; message: string }>> = {
+    success: {
+      cotizacion: {
+        title: '¡Solicitud recibida!',
+        message:
+          'Gracias por tu interés en la Citroën Berlingo Van. Un asesor comercial se contactará contigo lo más pronto posible para enviarte tu cotización personalizada.',
+      },
+      cita: {
+        title: '¡Cita registrada!',
+        message:
+          'Hemos recibido tu solicitud de cita en posventa. Un asesor de servicio te contactará en breve para confirmar fecha, hora y los detalles del taller.',
+      },
+      repuestos: {
+        title: '¡Cotización en camino!',
+        message:
+          'Tu solicitud de repuestos fue registrada. Nuestro equipo de posventa te contactará lo más pronto posible con la disponibilidad y el valor de los repuestos.',
+      },
+    },
+    error: {
+      cotizacion: {
+        title: 'No pudimos enviar tu solicitud',
+        message:
+          'Ocurrió un inconveniente al enviar tus datos. Revisa tu conexión e intenta nuevamente. Si el problema persiste, comunícate directamente con un concesionario Citroën.',
+      },
+      cita: {
+        title: 'No pudimos registrar tu cita',
+        message:
+          'Algo salió mal al enviar tu solicitud de cita. Revisa tu conexión e intenta de nuevo en unos minutos. Si continúa, contáctanos directamente.',
+      },
+      repuestos: {
+        title: 'No pudimos enviar tu solicitud',
+        message:
+          'Algo salió mal al procesar tu pedido de repuestos. Revisa tu conexión e intenta de nuevo. Si el problema persiste, comunícate con tu concesionario Citroën.',
+      },
+    },
+  };
+
+  const SUCCESS_ICON = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>`;
+  const ERROR_ICON = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>`;
+
+  const modal = document.getElementById('feedback-modal');
+  const titleEl = modal?.querySelector<HTMLElement>('[data-feedback-title]');
+  const messageEl = modal?.querySelector<HTMLElement>('[data-feedback-message]');
+  const iconEl = modal?.querySelector<HTMLElement>('[data-feedback-icon]');
+
+  function openModal() {
+    if (!modal) return;
+    modal.classList.add('is-open');
+    modal.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    modal.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+  }
+
+  window.addEventListener('form:feedback', ((e: Event) => {
+    const ce = e as CustomEvent<FeedbackDetail>;
+    const { kind, formType, message } = ce.detail;
+    const copy = COPY[kind]?.[formType];
+    if (!copy || !modal || !titleEl || !messageEl || !iconEl) return;
+
+    iconEl.className = `feedback-modal__icon feedback-modal__icon--${kind}`;
+    iconEl.innerHTML = kind === 'success' ? SUCCESS_ICON : ERROR_ICON;
+    titleEl.textContent = copy.title;
+    messageEl.textContent = message ?? copy.message;
+    openModal();
+  }) as EventListener);
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('[data-feedback-close]')) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('is-open')) closeModal();
+  });
+</script>

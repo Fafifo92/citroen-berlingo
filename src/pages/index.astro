@@ -11,6 +11,8 @@ import Gallery from '../components/Gallery.astro';
 import LeadForm from '../components/LeadForm.astro';
 import Footer from '../components/Footer.astro';
 import Lightbox from '../components/Lightbox.astro';
+import PrivacyModal from '../components/PrivacyModal.astro';
+import FeedbackModal from '../components/FeedbackModal.astro';
 import '../styles/global.css';
 
 // Env vars are baked in at build time (PUBLIC_ prefix exposes them to the client)
@@ -37,10 +39,10 @@ const rcpSrc = recaptchaSiteKey
     <meta name="keywords" content="Citroën, Berlingo, Van, vehículo comercial, furgoneta, carga, cotización, Colombia" />
     <meta name="author" content="Citroën Colombia" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#DA291C" />
+    <meta name="theme-color" content="#da281c" />
 
     <!-- Preload hero image -->
-    <link rel="preload" as="image" href="/images/optimized/FOTOS BERLINGO/PHOTO- foto frontal desde un lado derecho-1600.webp" imagesrcset="/images/optimized/FOTOS%20BERLINGO/PHOTO-%20foto%20frontal%20desde%20un%20lado%20derecho-800.webp 800w, /images/optimized/FOTOS%20BERLINGO/PHOTO-%20foto%20frontal%20desde%20un%20lado%20derecho-1200.webp 1200w, /images/optimized/FOTOS%20BERLINGO/PHOTO-%20foto%20frontal%20desde%20un%20lado%20derecho-1600.webp 1600w" imagesizes="100vw" type="image/webp" />
+    <link rel="preload" as="image" href="/images/optimized/FOTOS BERLINGO/Foto de la Berlingo diagonal de frente-1600.webp" imagesrcset="/images/optimized/FOTOS%20BERLINGO/Foto%20de%20la%20Berlingo%20diagonal%20de%20frente-800.webp 800w, /images/optimized/FOTOS%20BERLINGO/Foto%20de%20la%20Berlingo%20diagonal%20de%20frente-1200.webp 1200w, /images/optimized/FOTOS%20BERLINGO/Foto%20de%20la%20Berlingo%20diagonal%20de%20frente-1600.webp 1600w" imagesizes="100vw" type="image/webp" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -113,9 +115,11 @@ const rcpSrc = recaptchaSiteKey
     </main>
     <Footer />
     <Lightbox />
+    <PrivacyModal />
+    <FeedbackModal />
 
     <!-- Floating CTA Button -->
-    <a href="#hero" id="floating-cta" class="fixed bottom-6 right-6 z-50 btn-primary shadow-lg shadow-[#DA291C]/25 hidden items-center gap-2 !px-6 !py-3" aria-label="Cotiza ahora">
+    <a href="#hero" id="floating-cta" class="fixed bottom-6 right-6 z-50 btn-primary shadow-lg shadow-[#da281c]/25 hidden items-center gap-2 !px-6 !py-3" aria-label="Cotiza ahora">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       Cotiza Ahora
     </a>

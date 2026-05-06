@@ -1,6 +1,7 @@
 ---
 // Hero.astro — Hero with content left + lead form right
 import ResponsiveImage from './ResponsiveImage.astro';
+import PrivacyConsent from './PrivacyConsent.astro';
 const base = import.meta.env.BASE_URL;
 
 const tabs = [
@@ -12,22 +13,48 @@ const tabs = [
   { id: 'dealers', label: 'Concesionarios' },
   { id: 'gallery', label: 'Galería' },
 ];
+
+// Ken Burns slideshow — curated mix of exterior, interior, motor and details.
+// Each slide rotates with a slow zoom + pan. Order is randomized client-side.
+const heroSlides = [
+  { src: 'FOTOS BERLINGO/Foto de la Berlingo diagonal de frente.jpg', alt: 'Berlingo Van vista diagonal frontal', pos: '30% center' },
+  { src: 'FOTOS BERLINGO/PHOTO- Vista lateral.jpg',                     alt: 'Berlingo Van vista lateral',           pos: '50% center' },
+  { src: 'FOTOS BERLINGO/PHOTO- Motor.jpg',                              alt: 'Motor turbodiésel Berlingo',           pos: '50% 40%' },
+  { src: 'FOTOS BERLINGO/PHOTO- Vista del timon.jpg',                    alt: 'Vista del volante de la Berlingo',     pos: '60% center' },
+  { src: 'FOTOS BERLINGO/PHOTO-camina de conductor y acompañante.jpg',   alt: 'Cabina del conductor y acompañante',   pos: '50% center' },
+  { src: 'FOTOS BERLINGO/Compartimiento de atras de la citroen, la cabina de carga .jpg', alt: 'Cabina de carga trasera', pos: '50% center' },
+  { src: 'FOTOS BERLINGO/PHOTO- vista trasera con las puertas abiertas.jpg', alt: 'Vista trasera con puertas abiertas', pos: '50% center' },
+  { src: 'FOTOS BERLINGO/PHOTO- foto frontal desde un lado derecho.jpg',  alt: 'Vista frontal desde el lado derecho',  pos: '60% center' },
+];
 ---
 
 <section class="relative min-h-[90vh] md:min-h-screen flex flex-col overflow-hidden" id="hero">
-  <!-- Background Image — Foto real PHOTO- -->
-  <ResponsiveImage
-    src="FOTOS BERLINGO/PHOTO- foto frontal desde un lado derecho.jpg"
-    alt="Citroën Berlingo Van - Vista principal"
-    class="absolute inset-0 w-full h-full object-cover object-[60%_center]"
-    loading="eager"
-    fetchpriority="high"
-    sizes="100vw"
-  />
+  <!-- Ken Burns Slideshow — fades + slow zoom -->
+  <div class="absolute inset-0 hero-slideshow" id="hero-slideshow" aria-hidden="true">
+    {heroSlides.map((slide, i) => (
+      <div
+        class="hero-slide"
+        data-slide-index={i}
+        style={`--slide-pos:${slide.pos}`}
+      >
+        <ResponsiveImage
+          src={slide.src}
+          alt={slide.alt}
+          class="absolute inset-0 w-full h-full object-cover"
+          loading={i === 0 ? 'eager' : 'lazy'}
+          fetchpriority={i === 0 ? 'high' : 'auto'}
+          sizes="100vw"
+        />
+      </div>
+    ))}
+  </div>
 
-  <!-- Gradient Overlay — más oscuro para legibilidad del formulario -->
-  <div class="absolute inset-0 bg-black/70"></div>
-  <div class="absolute inset-0 bg-gradient-to-t from-[rgba(17,17,17,0.98)] via-[rgba(17,17,17,0.6)] to-[rgba(17,17,17,0.3)] xl:bg-none xl:[background-image:linear-gradient(90deg,rgba(17,17,17,0.97)_0%,rgba(17,17,17,0.8)_55%,rgba(17,17,17,0.6)_100%)]"></div>
+  <!-- Dark overlay so white text is always legible over any slide -->
+  <!-- Mobile/tablet: heavy bottom-up fade (form sits on solid dark base). -->
+  <!-- Desktop (xl+): horizontal fade — slightly dim left, very dark right behind the form. -->
+  <div class="absolute inset-0 bg-black/72 xl:bg-black/55"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[rgba(17,17,17,0.97)] via-[rgba(17,17,17,0.7)] to-[rgba(17,17,17,0.4)] xl:bg-none xl:[background-image:linear-gradient(90deg,rgba(17,17,17,0.55)_0%,rgba(17,17,17,0.6)_30%,rgba(17,17,17,0.88)_62%,rgba(17,17,17,0.97)_100%)]"></div>
+  <div class="hidden xl:block absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent"></div>
 
   <!-- Content -->
   <div class="relative z-10 flex-1 flex items-center">
@@ -44,7 +71,7 @@ const tabs = [
           <!-- Title -->
           <h1 class="text-[clamp(2rem,6vw,3.5rem)] text-white leading-[1.1] mb-4 animate-fade-in-up [text-shadow:0_2px_10px_rgba(0,0,0,0.6)]">
             La van que hace crecer<br />
-            <span class="text-[#DA291C]">tu negocio todos los días</span>
+            <span class="text-[#da281c]">tu negocio todos los días</span>
           </h1>
 
           <!-- Subtitle -->
@@ -61,19 +88,19 @@ const tabs = [
           <!-- 4 Bullets -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 animate-fade-in-up [animation-delay:0.2s]">
             <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-[#DA291C] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg class="w-5 h-5 text-[#da281c] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               <span class="text-[14px] text-white/90">Hasta 4,4 m³ de volumen de carga</span>
             </div>
             <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-[#DA291C] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg class="w-5 h-5 text-[#da281c] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               <span class="text-[14px] text-white/90">Motor turbodiésel de máxima eficiencia</span>
             </div>
             <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-[#DA291C] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg class="w-5 h-5 text-[#da281c] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               <span class="text-[14px] text-white/90">Confort tipo automóvil, trabaja cómodo, rinde más</span>
             </div>
             <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-[#DA291C] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg class="w-5 h-5 text-[#da281c] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               <span class="text-[14px] text-white/90">Espacio para 3 pasajeros (incluido conductor)</span>
             </div>
           </div>
@@ -93,7 +120,7 @@ const tabs = [
             <h3 class="text-xl font-bold text-white uppercase mb-2">Cotiza hoy y recibe asesoría inmediata</h3>
             <p class="text-[14px] text-white/60 mb-6">Completa tus datos y un asesor te contactará.</p>
 
-            <form id="hero-contact-form" novalidate>
+            <form id="hero-contact-form">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label for="hero-firstname" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Nombre</label>
@@ -125,15 +152,11 @@ const tabs = [
                   <option value="indeciso">No estoy seguro, necesito asesoría</option>
                 </select>
               </div>
-              <div class="mb-6">
-                <label for="hero-message" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Mensaje <span class="text-white/40 normal-case font-normal">(opcional)</span></label>
-                <textarea id="hero-message" name="message" rows="2" class="hero-form-input !h-auto !py-2.5" placeholder="Cuéntanos sobre tu operación o preguntas específicas"></textarea>
-              </div>
+              <PrivacyConsent id="hero-privacy" variant="dark" />
               <button type="submit" class="btn-primary w-full" id="hero-submit-btn">
                 Cotizar Ahora
               </button>
               <p class="text-[11px] text-white/40 text-center mt-4">
-                Al enviar, aceptas nuestra <a href="#" class="text-[#DA291C] underline underline-offset-2">Política de Privacidad</a>.
                 Protegido por reCAPTCHA (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-white/30 underline underline-offset-2">privacidad</a> · <a href="https://policies.google.com/terms" target="_blank" rel="noopener" class="text-white/30 underline underline-offset-2">términos</a>).
               </p>
             </form>
@@ -169,7 +192,7 @@ const tabs = [
           {tab.label}
         </a>
       ))}
-      <div id="tab-slider" class="absolute bottom-0 left-0 h-[3px] bg-[#DA291C] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-20 pointer-events-none" style="width: 0; transform: translateX(0);"></div>
+      <div id="tab-slider" class="absolute bottom-0 left-0 h-[3px] bg-[#da281c] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-20 pointer-events-none" style="width: 0; transform: translateX(0);"></div>
     </nav>
   </div>
 </div>
@@ -177,6 +200,32 @@ const tabs = [
 <style>
   .scrollbar-none::-webkit-scrollbar { display: none; }
   .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* ── Hero Ken Burns slideshow ───────────────────────────────────── */
+  .hero-slideshow { z-index: 0; }
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1200ms ease-in-out;
+    will-change: opacity;
+  }
+  .hero-slide.is-active { opacity: 1; }
+  /* The <img> inside each slide gets the Ken Burns motion. */
+  .hero-slide :global(img) {
+    object-position: var(--slide-pos, 50% center);
+    transform: scale(1.08);
+    transition: transform 7000ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .hero-slide.is-active :global(img) {
+    transform: scale(1.18) translate3d(-1.5%, -1%, 0);
+  }
+  /* Reduced motion: pin to the first slide, no zoom/fade animation. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide { transition: none; }
+    .hero-slide :global(img) { transition: none; transform: none; }
+  }
 
   .nav-tab {
     color: rgba(255, 255, 255, 0.6);
@@ -222,6 +271,65 @@ const tabs = [
 </style>
 
 <script>
+  // ── Hero Ken Burns slideshow ──────────────────────────────────────────────
+  // Randomize order, then cross-fade between slides every ~6 seconds.
+  // Pauses when the tab is hidden or the user prefers reduced motion.
+  (() => {
+    const container = document.getElementById('hero-slideshow');
+    if (!container) return;
+    const slides = Array.from(container.querySelectorAll<HTMLElement>('.hero-slide'));
+    if (slides.length === 0) return;
+
+    // Fisher–Yates shuffle of the slide order
+    const order = slides.map((_, i) => i);
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    let cursor = 0;
+    slides[order[0]].classList.add('is-active');
+
+    if (reduce || slides.length === 1) return;
+
+    // The Ken Burns animation runs 18s; we cross-fade every 8s so the slide
+    // is always still moving when the next one starts — no visible stop.
+    const INTERVAL = 8000;
+    const FADE_MS = 1800;
+    let timer: number | null = null;
+
+    function advance() {
+      const prev = order[cursor];
+      cursor = (cursor + 1) % order.length;
+      const next = order[cursor];
+      // Restart the animation cleanly on the incoming slide by toggling the
+      // class — forces the browser to replay the keyframes from the start.
+      const nextSlide = slides[next];
+      const nextImg = nextSlide.querySelector<HTMLImageElement>('img');
+      if (nextImg) {
+        nextImg.style.animation = 'none';
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        void nextImg.offsetWidth; // reflow
+        nextImg.style.animation = '';
+      }
+      nextSlide.classList.add('is-active');
+      window.setTimeout(() => {
+        slides[prev].classList.remove('is-active');
+      }, FADE_MS);
+    }
+    function start() {
+      if (timer === null) timer = window.setInterval(advance, INTERVAL);
+    }
+    function stop() {
+      if (timer !== null) { window.clearInterval(timer); timer = null; }
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop(); else start();
+    });
+    start();
+  })();
+
   // Tab navigation
   const tabs = document.querySelectorAll('.nav-tab');
   const slider = document.getElementById('tab-slider');
@@ -301,6 +409,11 @@ const tabs = [
   const heroBtn  = document.getElementById('hero-submit-btn') as HTMLButtonElement;
   heroForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    // Native HTML5 validation: bail out if any required field is empty.
+    if (!heroForm.checkValidity()) {
+      heroForm.reportValidity();
+      return;
+    }
     await submitForm(heroForm, 'cotizacion', heroBtn);
   });
 </script>

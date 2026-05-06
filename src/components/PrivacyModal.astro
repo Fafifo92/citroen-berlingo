@@ -1,0 +1,191 @@
+---
+// PrivacyModal.astro — Single shared modal for the Inchcape data-treatment
+// notice. Mounted once in index.astro. Any form on the page can open it via
+// the .privacy-trigger button rendered inside .privacy-consent.
+//
+// When the user clicks "He leído y acepto", every privacy checkbox on the
+// page gets checked — letting the user submit the form they were filling out.
+---
+
+<div class="privacy-modal" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title" hidden>
+  <div class="privacy-modal__box">
+    <div class="privacy-modal__header">
+      <h3 id="privacy-modal-title">Tratamiento de datos personales</h3>
+      <button type="button" class="privacy-modal__close" aria-label="Cerrar" data-privacy-close>&times;</button>
+    </div>
+    <div class="privacy-modal__body">
+      <p>
+        Declaro que he sido informado por el grupo empresarial compuesto por las sociedades:
+        Inchcape Colombia S.A.S, Derco Colombia S.A.S, Derco Agencia de Seguros LTDA., Matrase S.A.S,
+        Distribuidora Hino de Colombia S.A.S e Inmobiliaria Inchcape de Colombia S.A.S; en adelante
+        <strong>"Las Compañías"</strong>, que serán el Responsable del Tratamiento de mis Datos Personales,
+        por lo que autorizo de manera previa, libre, voluntaria, inequívoca, expresa e informada a
+        "Las Compañías" o quien represente sus derechos, también a la sociedad matriz y/o subordinadas
+        en Colombia o en el exterior, y en especial, a cualquiera de las sociedades del grupo Inchcape,
+        dentro de las que se encuentra, Inchcape Global Business Services S.A.S, Inchcape DDC Colombia
+        S.A.S, e incluyendo mas no limitándose a INCHCAPE PLC, y en general a sus aliados estratégicos
+        y/o distribuidores autorizados, fabricantes de vehículos que representan e importan y a los
+        concesionarios autorizados de la red de "Las Compañías" en Colombia a recolectar, almacenar,
+        usar, circular y suprimir mis datos personales, conforme a la Política de Tratamiento de Datos
+        Personales descrita en el siguiente link
+        <a href="https://www.inchcape.com.co/" target="_blank" rel="noopener">https://www.inchcape.com.co/</a>,
+        y en cumplimiento de la ley 1581 de 2012, ley 1266 de 2008, ley 2300 de 2023 y demás normas,
+        modificatorias, aclaratorias, complementarias y/o derogatorias.
+      </p>
+      <p>
+        Con la presente autorización del tratamiento de mis datos personales se me podrá contactar
+        dentro de una misma semana, y en más de una ocasión durante el mismo día mediante: SMS,
+        WhatsApp, correo electrónico, dirección de residencia, llamada telefónica y/o cualquier otro
+        medio de comunicación instantáneo o formal por motivos de: envío de información relacionada
+        con todo el concepto de experiencia de cualquiera de las marcas que hacen parte de
+        "Las Compañías", ya sea para fines de actualización de datos, invitación a eventos, envío
+        de publicidad, fines estadísticos, envío de información de productos y servicios, ofertas,
+        descuentos, información corporativa, auditorías, seguimientos, promociones, encuestas,
+        llamadas de seguimiento, envío de productos a la dirección de residencia, así como envío
+        de información de campañas técnicas de servicio, seguridad o "recall", de productos
+        financieros de seguros para la adquisición de bienes y servicios de cualquiera de las marcas
+        que hacen parte de "Las Compañías".
+      </p>
+      <p>
+        Así como, la facultad de consultar y tratar la información contenida en las diferentes bases
+        de datos de autoridades o entidades estatales o públicas, y/o de terceras entidades de carácter
+        privado que formen parte del Sistema General de Seguridad Social Integral, en especial, pero
+        sin limitarse a los Operadores de información de la Planilla Integrada de Liquidación de
+        Aportes-PILA, y/o la entidad que haga sus veces, y/o proveedores de facturación y/o de nómina
+        electrónica, entre otros. Lo anterior, con la finalidad de realizar análisis de riesgo a partir
+        del conocimiento de los ingresos y otros datos laborales de los titulares de la información.
+      </p>
+      <p>
+        De igual forma, esta autorización comprende el mandato expreso para que mi información haga
+        parte de la Base de Datos de cualquiera de "Las Compañías", así como también pueda ser
+        transferida y/o transmitida a otras compañías externas del Grupo Inchcape con residencia en
+        Colombia o en otros países, incluyendo mas no limitándose a las marcas de los productos que
+        importa, comercializa y distribuyen "Las Compañías" en Colombia.
+      </p>
+      <p>
+        Como titular de la información soy consciente que tengo el derecho a conocer, actualizar y
+        rectificar mis datos personales, solicitar prueba de la autorización otorgada para su
+        trámite, revocar la autorización y/o solicitar la supresión de mis datos por medio de una
+        solicitud escrita dirigida a:
+        <a href="mailto:didacol@didacol.com">didacol@didacol.com</a> y
+        <a href="mailto:servicioalcliente@derco.com.co">servicioalcliente@derco.com.co</a>.
+      </p>
+    </div>
+    <div class="privacy-modal__footer">
+      <button type="button" class="btn-outline-dark" id="privacy-reject-btn">Rechazar</button>
+      <button type="button" class="btn-primary" id="privacy-accept-btn">He leído y acepto</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('privacy-modal');
+  const acceptBtn = document.getElementById('privacy-accept-btn');
+  const rejectBtn = document.getElementById('privacy-reject-btn');
+
+  // Track which checkbox triggered the modal so we can update only the
+  // current form's consent if needed. Accept still marks every checkbox
+  // on the page (one accept = global consent for the session).
+  let lastTrigger: HTMLInputElement | null = null;
+
+  function openModal(trigger: HTMLInputElement | null = null) {
+    if (!modal) return;
+    lastTrigger = trigger;
+    modal.classList.add('is-open');
+    modal.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    modal.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+  }
+
+  // Intercept clicks on the consent checkbox: never let the user toggle it
+  // directly — open the modal instead. Acceptance is the only way to check.
+  // NOTE: during a `click` event the browser has already flipped
+  // `checkbox.checked` to the new value, so we cannot rely on it to know
+  // the previous state. We track acceptance ourselves via `data-accepted`.
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+
+    // Checkbox click → open modal (block native toggle)
+    const checkbox = target.closest<HTMLInputElement>(
+      'input[type="checkbox"][data-privacy-checkbox]'
+    );
+    if (checkbox) {
+      e.preventDefault();
+      const accepted = checkbox.dataset.accepted === '1';
+      if (accepted) {
+        // Already accepted → revoke
+        checkbox.checked = false;
+        delete checkbox.dataset.accepted;
+        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+      } else {
+        // Not yet accepted → show the modal so user can read & decide
+        checkbox.checked = false;
+        openModal(checkbox);
+      }
+      return;
+    }
+
+    // Trigger link / button → open modal
+    if (target.closest('.privacy-trigger')) {
+      e.preventDefault();
+      const form = (target.closest('form') as HTMLFormElement | null);
+      const cb = form?.querySelector<HTMLInputElement>(
+        'input[type="checkbox"][data-privacy-checkbox]'
+      ) ?? null;
+      openModal(cb);
+      return;
+    }
+
+    if (target.closest('[data-privacy-close]') || target === modal) {
+      closeModal();
+    }
+  });
+
+  // Accept → check ONLY the checkbox that triggered the modal (per-form
+  // consent). If somehow no trigger was tracked, fall back to all boxes so
+  // the user is never blocked by a missed reference.
+  acceptBtn?.addEventListener('click', () => {
+    const targets = lastTrigger
+      ? [lastTrigger]
+      : Array.from(
+          document.querySelectorAll<HTMLInputElement>(
+            'input[type="checkbox"][data-privacy-checkbox]'
+          )
+        );
+    targets.forEach((cb) => {
+      cb.checked = true;
+      cb.dataset.accepted = '1';
+      cb.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    lastTrigger = null;
+    closeModal();
+  });
+
+  // Reject → ensure ONLY the triggering checkbox stays unchecked
+  rejectBtn?.addEventListener('click', () => {
+    const targets = lastTrigger
+      ? [lastTrigger]
+      : Array.from(
+          document.querySelectorAll<HTMLInputElement>(
+            'input[type="checkbox"][data-privacy-checkbox]'
+          )
+        );
+    targets.forEach((cb) => {
+      cb.checked = false;
+      delete cb.dataset.accepted;
+      cb.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    lastTrigger = null;
+    closeModal();
+  });
+
+  // Esc to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('is-open')) closeModal();
+  });
+</script>

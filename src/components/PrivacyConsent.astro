@@ -1,0 +1,32 @@
+---
+// PrivacyConsent.astro — Checkbox + label snippet to drop into any form.
+// Clicking the checkbox (or its label) opens the privacy modal; the user
+// can only mark it as accepted by pressing "He leído y acepto" inside the
+// modal. Pressing "Rechazar" or closing leaves the box unchecked, which
+// blocks form submission via form-handler.ts.
+interface Props {
+  id: string;
+  variant?: 'light' | 'dark';
+}
+const { id, variant = 'light' } = Astro.props;
+const colorClass = variant === 'dark'
+  ? 'text-white/80'
+  : 'text-[#646464]';
+---
+
+<div class={`privacy-consent ${colorClass}`}>
+  <input
+    type="checkbox"
+    id={id}
+    name="privacy_accepted"
+    value="1"
+    data-privacy-checkbox
+    aria-describedby={`${id}-text`}
+    required
+  />
+  <label for={id} id={`${id}-text`}>
+    He leído y acepto el
+    <button type="button" class="privacy-trigger">tratamiento de datos personales</button>
+    de Las Compañías del Grupo Inchcape.
+  </label>
+</div>

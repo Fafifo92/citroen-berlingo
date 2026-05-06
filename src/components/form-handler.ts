@@ -81,6 +81,19 @@ function showNotification(form: HTMLFormElement, type: 'success' | 'error') {
   setTimeout(() => el.remove(), 5000);
 }
 
+// ── Feedback modal dispatcher ──────────────────────────────────────────────────
+function showFeedback(
+  formType: FormType,
+  kind: 'success' | 'error',
+  message?: string
+) {
+  window.dispatchEvent(
+    new CustomEvent('form:feedback', {
+      detail: { kind, formType, message },
+    })
+  );
+}
+
 // ── Main export ────────────────────────────────────────────────────────────────
 export async function submitForm(
   form: HTMLFormElement,
@@ -91,6 +104,18 @@ export async function submitForm(
   const webhookUrl = config?.zapier?.[formType] ?? '';
 
   const originalText = submitBtn.textContent?.trim() ?? 'Enviar';
+
+  // Privacy consent guard — must be checked before anything else
+  const consent = form.querySelector<HTMLInputElement>(
+    'input[type="checkbox"][data-privacy-checkbox]'
+  );
+  if (consent && !consent.checked) {
+    setButtonState(submitBtn, 'Acepta el tratamiento de datos', '#c0392b', false);
+    consent.focus();
+    setTimeout(() => setButtonState(submitBtn, originalText, '', false), 2500);
+    return;
+  }
+
   setButtonState(submitBtn, 'Enviando…', undefined, true);
 
   // Collect form fields
@@ -116,6 +141,7 @@ export async function submitForm(
   if (!webhookUrl || webhookUrl.includes('XXXXXXX') || webhookUrl === '') {
     console.info('[Form] Dev mode — webhook not configured. Payload:', data);
     setButtonState(submitBtn, '✓ Enviado (dev)', '#3B3938', true);
+    showFeedback(formType, 'success');
     // Reset v2 widget
     if (config?.recaptcha?.version === 'v2') {
       const widgetId = window.__recaptchaWidgets?.get(form);
@@ -129,14 +155,27 @@ export async function submitForm(
   }
 
   // ── Production POST ────────────────────────────────────────────────────────
+  // POST directly to Zapier webhook as JSON — Zapier supports CORS from browsers.
   try {
-    await fetch(webhookUrl, {
+    if (!navigator.onLine) {
+      throw new Error('offline');
+    }
+
+    // Use URLSearchParams so fetch sends application/x-www-form-urlencoded
+    // automatically — this is a CORS "simple request" (no preflight) that
+    // Zapier webhooks accept without CORS headers.
+    const response = await fetch(webhookUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: new URLSearchParams(data),
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
     setButtonState(submitBtn, '¡Enviado! ✓', '#3B3938', true);
     showNotification(form, 'success');
+    showFeedback(formType, 'success');
     // Reset v2 widget after success
     if (config?.recaptcha?.version === 'v2') {
       const widgetId = window.__recaptchaWidgets?.get(form);
@@ -144,12 +183,25 @@ export async function submitForm(
     }
     setTimeout(() => {
       form.reset();
+      // Also clear privacy consent state for this form
+      const cb = form.querySelector<HTMLInputElement>(
+        'input[type="checkbox"][data-privacy-checkbox]'
+      );
+      if (cb) {
+        cb.checked = false;
+        delete cb.dataset.accepted;
+      }
       setButtonState(submitBtn, originalText, '', false);
-    }, 4000);
+    }, 3500);
   } catch (err) {
     console.error('[Form] Error:', err);
+    const offline = !navigator.onLine || (err as Error)?.message === 'offline';
+    const friendly = offline
+      ? 'Parece que no tienes conexión a internet. Verifica tu red e intenta nuevamente.'
+      : undefined; // let the modal use its default per-form copy
     setButtonState(submitBtn, 'Error — intenta de nuevo', '#c0392b', true);
     showNotification(form, 'error');
+    showFeedback(formType, 'error', friendly);
     // Reset v2 widget on error too
     if (config?.recaptcha?.version === 'v2') {
       const widgetId = window.__recaptchaWidgets?.get(form);

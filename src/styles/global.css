@@ -80,18 +80,28 @@
 
 /* ── Tailwind v4 Theme Configuration ── */
 @theme {
-  /* Brand Colors */
-  --color-primary: #DA291C;
-  --color-primary-hover: #B82118;
-  --color-primary-light: rgba(218, 41, 28, 0.08);
+  /* Brand Colors — Citroën official palette */
+  --color-primary:        #da281c;  /* INFRA RED */
+  --color-primary-hover:  #b21e14;
+  --color-primary-light:  rgba(218, 40, 28, 0.08);
 
-  --color-dark: #3B3938;
-  --color-gray: #646464;
-  --color-gray-light: #ababab;
-  --color-border: #E7E7E7;
-  --color-bg-light: #F5F6F7;
-  --color-white: #FFFFFF;
-  --color-black: #111111;
+  /* Secondary blues */
+  --color-monte-carlo:    #7a99ad;  /* Monte Carlo Blue */
+  --color-blue-001:       #5b7f95;  /* Blue 001 */
+
+  /* Cool greys (official) */
+  --color-cool-grey-7:    #99999b;
+  --color-cool-grey-4:    #cccacb;
+  --color-cool-grey-1:    #e1dfe0;
+
+  /* Neutrals */
+  --color-dark:           #000000;
+  --color-gray:           #99999b;
+  --color-gray-light:     #cccacb;
+  --color-border:         #e1dfe0;
+  --color-bg-light:       #f5f6f7;
+  --color-white:          #ffffff;
+  --color-black:          #000000;
 
   /* Font Family */
   --font-sans: 'Citroen Type', 'stellantis-ui', sans-serif;
@@ -119,7 +129,7 @@
 
 /* ── Base Reset ── */
 html {
-  font-size: 17px; /* 1px larger than default to subtly scale up all text globally */
+  font-size: 18px; /* readability bump — global scale-up */
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -147,7 +157,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   padding: 0.5rem 2.75rem; /* py-2 px-11 */
-  background-color: #DA291C;
+  background-color: #da281c;
   color: #FFFFFF;
   font-family: var(--font-sans);
   font-size: 16px;
@@ -166,11 +176,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary:hover {
-  background-color: #B82118;
+  background-color: #b21e14;
 }
 
 .btn-primary:active {
-  background-color: #961A14;
+  background-color: #8a170f;
   transform: scale(0.98);
 }
 
@@ -287,3 +297,241 @@ body.reveal-ready [data-reveal].revealed {
     transition: none !important;
   }
 }
+
+/* ── Readability bump: scale up tiny font sizes used across the landing ──
+   Many components use arbitrary pixel literals (text-[10px]…text-[15px]).
+   These overrides nudge every small text up so body copy is easier
+   to read without restructuring every component. */
+.text-\[10px\] { font-size: 12.5px !important; }
+.text-\[11px\] { font-size: 13px !important; }
+.text-\[12px\] { font-size: 14px !important; }
+.text-\[13px\] { font-size: 15px !important; }
+.text-\[14px\] { font-size: 16px !important; }
+.text-\[15px\] { font-size: 17px !important; }
+.text-\[16px\] { font-size: 18px !important; }
+.text-xs   { font-size: 14px !important; line-height: 1.55; }
+.text-sm   { font-size: 16px !important; line-height: 1.6; }
+.text-base { font-size: 17.5px !important; }
+
+/* =====================================================================
+   Privacy modal & consent checkbox — shared across all forms
+   ===================================================================== */
+.privacy-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.privacy-consent input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.privacy-consent input[type="checkbox"]:checked {
+  background: #da281c;
+  border-color: #da281c;
+}
+.privacy-consent input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='20 6 9 17 4 12'/%3e%3c/svg%3e");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.privacy-consent label {
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.85;
+}
+.privacy-consent .privacy-trigger {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #da281c;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* Modal */
+.privacy-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+.privacy-modal.is-open { display: flex; }
+.privacy-modal__box {
+  background: #fff;
+  color: #3B3938;
+  max-width: 760px;
+  width: 100%;
+  max-height: 85vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+}
+.privacy-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid #E7E7E7;
+}
+.privacy-modal__header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+.privacy-modal__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+  color: #646464;
+  padding: 4px 8px;
+}
+.privacy-modal__close:hover { color: #da281c; }
+.privacy-modal__body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #3B3938;
+}
+.privacy-modal__body a { color: #da281c; text-decoration: underline; }
+.privacy-modal__footer {
+  padding: 16px 24px;
+  border-top: 1px solid #E7E7E7;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Site logo ---------- */
+.site-logo {
+  display: block;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.site-logo:hover { opacity: 0.85; }
+/* Footer (dark bg): invert to render the black wordmark in white */
+.site-logo--invert { filter: brightness(0) invert(1); opacity: 0.85; }
+.site-logo--invert:hover { filter: brightness(0) invert(1) sepia(1) saturate(8) hue-rotate(-10deg); opacity: 1; }
+
+/* =====================================================================
+   Feedback modal — success / error after form submission
+   ===================================================================== */
+.feedback-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.feedback-modal.is-open { display: flex; }
+.feedback-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+}
+.feedback-modal__panel {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 460px;
+  padding: 36px 32px 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: feedback-pop 0.25s ease-out;
+}
+@keyframes feedback-pop {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.feedback-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #99999b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.feedback-modal__close:hover { background: #e1dfe0; color: #000; }
+.feedback-modal__icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.feedback-modal__icon svg { width: 32px; height: 32px; }
+.feedback-modal__icon--success {
+  background: rgba(39, 174, 96, 0.12);
+  color: #27ae60;
+}
+.feedback-modal__icon--error {
+  background: rgba(218, 40, 28, 0.12);
+  color: #da281c;
+}
+.feedback-modal__title {
+  font-family: 'Citroen Type', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #000;
+  margin: 0 0 12px;
+  letter-spacing: 0.01em;
+}
+.feedback-modal__message {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #1a1a1a;
+  margin: 0 0 24px;
+}
+.feedback-modal__footer {
+  display: flex;
+  justify-content: center;
+}
+.feedback-modal__footer .btn-primary { min-width: 160px; }
+
+
+

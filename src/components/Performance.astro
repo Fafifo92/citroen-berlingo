@@ -7,18 +7,22 @@ const painPoints = [
   {
     icon: 'box',
     question: '¿Poco espacio de carga?',
+    solution: 'Hasta 4,4 m³ de volumen de carga',
   },
   {
     icon: 'fuel',
     question: '¿Alto consumo de combustible?',
+    solution: 'Vehículo Diesel de máxima eficiencia',
   },
   {
     icon: 'seat',
     question: '¿Incomodidad para jornadas largas?',
+    solution: 'Confort tipo automóvil, trabaja cómodo, rinde más',
   },
   {
     icon: 'wrench',
     question: '¿Mal Servicio Posventa?',
+    solution: 'Red de concesionarios a nivel nacional',
   },
 ];
 ---
@@ -28,7 +32,7 @@ const painPoints = [
 
     <!-- Header -->
     <div class="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
-      <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-[#DA291C] border border-[#DA291C]/30 bg-[#DA291C]/5">
+      <span class="inline-block px-3 py-1 mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-[#da281c] border border-[#da281c]/30 bg-[#da281c]/5">
         El desafío de tu negocio
       </span>
       <h2 class="text-[clamp(2rem,4vw,3rem)] leading-[1.1] font-bold text-[#3B3938] mb-6">
@@ -40,39 +44,55 @@ const painPoints = [
     <!-- Pain Points Grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
       {painPoints.map((pain, i) => (
-        <div class="bg-white border border-[#E7E7E7] p-6 rounded-lg text-center hover:border-[#DA291C]/30 transition-colors duration-300 group" data-reveal="fade-up" style={`--reveal-delay: ${i * 0.1}s`}>
-          <div class="w-14 h-14 mx-auto rounded-full bg-[#DA291C]/[0.06] flex items-center justify-center mb-4">
-            {pain.icon === 'box' && (
-              <svg class="w-7 h-7 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-            )}
-            {pain.icon === 'fuel' && (
-              <svg class="w-7 h-7 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/><path d="M15 10h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2v0"/><path d="M3 22h12"/><rect x="6" y="10" width="4" height="4"/></svg>
-            )}
-            {pain.icon === 'seat' && (
-              <svg class="w-7 h-7 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 36V22a10 10 0 0 1 20 0v14"/><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-            )}
-            {pain.icon === 'wrench' && (
-              <svg class="w-7 h-7 text-[#DA291C]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-            )}
+        <div class="flip-card h-[200px]" data-reveal="fade-up" style={`--reveal-delay: ${i * 0.1}s`}>
+          <div class="flip-card-inner">
+            <!-- FRONT (question) -->
+            <div class="flip-card-face flip-card-front bg-white border border-[#E7E7E7] p-6 rounded-lg text-center">
+              <div class="w-14 h-14 mx-auto rounded-full bg-[#da281c]/[0.06] flex items-center justify-center mb-4">
+                {pain.icon === 'box' && (
+                  <!-- lucide:package -->
+                  <svg class="w-7 h-7 text-[#da281c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                )}
+                {pain.icon === 'fuel' && (
+                  <!-- lucide:fuel -->
+                  <svg class="w-7 h-7 text-[#da281c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="15" y1="22" y2="22"/><line x1="4" x2="14" y1="9" y2="9"/><path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"/></svg>
+                )}
+                {pain.icon === 'seat' && (
+                  <!-- lucide:armchair -->
+                  <svg class="w-7 h-7 text-[#da281c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2a2 2 0 0 0-4 0v2H7v-2a2 2 0 0 0-4 0Z"/><path d="M5 18v2"/><path d="M19 18v2"/></svg>
+                )}
+                {pain.icon === 'wrench' && (
+                  <!-- lucide:wrench -->
+                  <svg class="w-7 h-7 text-[#da281c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                )}
+              </div>
+              <p class="text-[16px] font-bold text-[#3B3938]">{pain.question}</p>
+              <span class="block mt-3 text-[11px] uppercase tracking-[0.12em] text-[#da281c]/70 font-bold">Pasa el cursor</span>
+            </div>
+            <!-- BACK (solution) -->
+            <div class="flip-card-face flip-card-back bg-[#da281c] p-6 rounded-lg text-center flex flex-col items-center justify-center">
+              <div class="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center mb-3">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="block mb-2 text-[10px] uppercase tracking-[0.15em] text-white/70 font-bold">Nuestra solución</span>
+              <p class="text-[15px] font-bold text-white leading-tight">{pain.solution}</p>
+            </div>
           </div>
-          <p class="text-[15px] font-bold text-[#3B3938]">{pain.question}</p>
         </div>
       ))}
     </div>
 
-    <!-- Solution Box -->
-    <div class="relative bg-[#3B3938] rounded-lg overflow-hidden" data-reveal="fade-up" style="--reveal-delay: 0.1s">
-      <div class="absolute inset-0 bg-gradient-to-r from-[#DA291C]/10 to-transparent pointer-events-none"></div>
-      <div class="grid lg:grid-cols-[2fr_3fr] gap-8 items-center relative z-10">
+    <!-- Solution Box — split layout: brand black text panel + image -->
+    <div class="relative rounded-lg overflow-hidden" data-reveal="fade-up" style="--reveal-delay: 0.1s">
+      <div class="grid lg:grid-cols-[2fr_3fr] items-stretch relative z-10 bg-black">
+        <!-- Vertical brand-red accent bar -->
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#da281c] z-20"></div>
 
         <!-- Text -->
         <div class="p-10 lg:p-14">
-          <div class="w-16 h-16 rounded-full bg-[#DA291C] flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
           <h3 class="text-[clamp(1.5rem,3vw,2.25rem)] font-bold text-white leading-[1.15] mb-4">
             Citroën Berlingo<br/>
-            <span class="text-[#DA291C]">diseñada para trabajar contigo</span>
+            <span class="text-[#da281c]">diseñada para trabajar contigo</span>
           </h3>
           <p class="text-[16px] text-white/70 leading-relaxed max-w-lg">
             La Berlingo Van resuelve cada uno de estos desafíos con capacidad de carga líder, eficiencia superior, confort real para jornadas largas y un servicio posventa que no te deja parado.
@@ -94,3 +114,48 @@ const painPoints = [
 
   </div>
 </section>
+
+<style>
+  .flip-card {
+    perspective: 1200px;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+  }
+  .flip-card:hover .flip-card-inner,
+  .flip-card:focus-within .flip-card-inner,
+  .flip-card.is-flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-card-face {
+    position: absolute;
+    inset: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flip-card-inner { transition: none; }
+  }
+</style>
+
+<script>
+  // Touch / tap support: toggle flip on tap for non-hover devices
+  document.querySelectorAll<HTMLElement>('.flip-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      if (window.matchMedia('(hover: none)').matches) {
+        card.classList.toggle('is-flipped');
+      }
+    });
+  });
+</script>
