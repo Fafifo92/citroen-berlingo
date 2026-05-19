@@ -20,7 +20,7 @@ const SRC_DIRS = [
 const OUT_BASE = path.join(ROOT, 'public', 'images', 'optimized');
 
 const WIDTHS = [480, 800, 1200, 1600];
-const EXT_RE = /\.(jpe?g|png)$/i;
+const EXT_RE = /\.(jpe?g|png|webp)$/i;
 
 let sharp;
 try {
