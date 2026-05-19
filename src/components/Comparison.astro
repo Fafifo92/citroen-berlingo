@@ -7,13 +7,13 @@ const models = [
   {
     name: 'Berlingo 1 Puerta Lateral',
     description: 'Configuración estándar con una puerta lateral corrediza. Ideal para operaciones de carga y descarga en espacios reducidos.',
-    image: 'FOTOS BERLINGO/PHOTO- Vista lateral.webp',
+    image: 'FOTOS BERLINGO/seccion versiones/1 puerta lateral.webp',
     recommended: false,
   },
   {
     name: 'Berlingo Doble Puerta Lateral',
     description: 'Doble acceso lateral para máxima versatilidad en carga y descarga, optimizando los tiempos de tu operación.',
-    image: 'FOTOS BERLINGO/PHOTO- vista trasera con las puertas abiertas.webp',
+    image: 'FOTOS BERLINGO/seccion versiones/doble puerta lateral.webp',
     recommended: true,
   },
 ];
@@ -84,10 +84,12 @@ const colors = [
 
         <!-- Silueta -->
         <div class="flex items-center justify-center">
-          <img
-            src={`${base}images/PNG/Iconos%20de%20seguridad/BERLINGO%20K9-%20fondo%20transparente.png`}
+          <ResponsiveImage
+            src="FOTOS BERLINGO/seccion caracteristicas/berlingo.png"
             alt="Silueta Citroën Berlingo"
             class="max-h-[180px] w-auto object-contain"
+            widths={[480]}
+            sizes="(min-width: 1024px) 40vw, 80vw"
             loading="lazy"
           />
         </div>
