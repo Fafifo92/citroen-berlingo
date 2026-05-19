@@ -32,7 +32,7 @@ const socialLinks = [
 ---
 
 <footer class="bg-[#3B3938] text-white/70 pt-16" id="footer">
-  <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-12 pb-12 items-start">
+  <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-12 pb-12 items-start">
     <!-- Brand -->
     <div>
       <div class="mb-3 group w-fit">
@@ -74,23 +74,6 @@ const socialLinks = [
       <a href="#" class="block text-sm text-white/60 mb-2.5 hover:text-[#da281c] transition-colors">Política de Cookies</a>
     </div>
 
-    <!-- Social Links Column -->
-    <div>
-      <h4 class="text-[11px] font-bold uppercase tracking-[0.15em] text-white/35 mb-4">Síguenos</h4>
-      {socialLinks.map((social) => (
-        <a
-          href={social.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center gap-2.5 text-sm text-white/60 mb-2.5 hover:text-[#da281c] transition-colors group"
-        >
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="w-4 h-4 shrink-0">
-            <Fragment set:html={social.icon} />
-          </svg>
-          {social.name}
-        </a>
-      ))}
-    </div>
   </div>
 
   <!-- Bottom Bar -->

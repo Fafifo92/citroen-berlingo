@@ -54,7 +54,7 @@ function enc(p: string): string {
 
 const originalHref = `${base}images/${enc(cleaned)}`;
 const optimizedDir = parsed.dir ? `${base}images/optimized/${enc(parsed.dir)}/` : `${base}images/optimized/`;
-const nameEnc = encodeURIComponent(parsed.name);
+const nameEnc = enc(parsed.name);
 
 const srcset = widths.map((w) => `${optimizedDir}${nameEnc}-${w}.webp ${w}w`).join(', ');
 const fallbackSrc = `${optimizedDir}${nameEnc}-800.webp`;
