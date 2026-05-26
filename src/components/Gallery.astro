@@ -9,82 +9,82 @@ const p = (name: string) => folder + name;
 const images = [
   // Row 1 (4-col: 2+1+1 | 3-col: 2+1)
   {
-    src: p("PHOTO- Vista lateral.webp"),
+    src: p("PHOTO- Vista lateral.jpg"),
     alt: "Citroën Berlingo Van - Vista lateral completa",
     label: "Vista lateral",
     wide: true,
   },
   {
-    src: p("PHOTO- foto frontal desde un lado derecho completa.webp"),
+    src: p("PHOTO- foto frontal desde un lado derecho completa.jpg"),
     alt: "Citroën Berlingo Van - Vista frontal desde el lado derecho",
     label: "Frontal derecha",
     wide: false,
   },
   {
-    src: p("PHOTO- foto frontal desde un lado derecho ubicando la van a la izquierda.webp"),
+    src: p("PHOTO- foto frontal desde un lado derecho ubicando la van a la izquierda.jpg"),
     alt: "Citroën Berlingo Van - Diagonal frontal derecha",
     label: "Diagonal frontal",
     wide: false,
   },
   // Row 2 (4-col: 1+1+1+1 | 3-col: 1+1+1)
   {
-    src: p("PHOTO- vista trasera con las puertas abiertas.webp"),
+    src: p("PHOTO- vista trasera con las puertas abiertas.jpg"),
     alt: "Acceso de carga con puertas traseras abiertas",
     label: "Carga trasera",
     wide: false,
   },
   {
-    src: p("PHOTO- vista trasera con las puertas abiertas angulo derecho.webp"),
+    src: p("PHOTO- vista trasera con las puertas abiertas angulo derecho.jpg"),
     alt: "Vista trasera con puertas abiertas ángulo derecho",
     label: "Trasera ángulo",
     wide: false,
   },
   {
-    src: p("PHOTO- vista trasera cabina de cargawebp.webp"),
+    src: p("PHOTO- vista trasera cabina de cargawebp.jpg"),
     alt: "Compartimiento trasero - cabina de carga",
     label: "Cabina de carga",
     wide: false,
   },
   {
-    src: p("vista del volante con todo le panel delantero.webp"),
+    src: p("vista del volante con todo le panel delantero.jpg"),
     alt: "Volante y panel delantero completo",
     label: "Panel delantero",
     wide: false,
   },
   // Row 3 (4-col: 1+1+1+1 | 3-col: 1+1+1)
   {
-    src: p("vista del timon y emblema.webp"),
+    src: p("vista del timon y emblema.jpg"),
     alt: "Timón y emblema Citroën",
     label: "Timón y emblema",
     wide: false,
   },
   {
-    src: p("Panel de control radio.webp"),
+    src: p("Panel de control radio.jpg"),
     alt: "Panel de control de radio y multimedia",
     label: "Radio",
     wide: false,
   },
   {
-    src: p("logo emplema citroen.webp"),
+    src: p("logo emplema citroen.jpg"),
     alt: "Emblema Citroën en la carrocería",
     label: "Emblema Citroën",
     wide: false,
   },
   {
-    src: p("Luz  farola frontal derecha.webp"),
+    src: p("Luz  farola frontal derecha.jpg"),
     alt: "Faro delantero derecho",
     label: "Faro derecho",
     wide: false,
   },
   // Row 4
   {
-    src: p("Luz farola, y rueda frontal izquierda.webp"),
+    src: p("Luz farola, y rueda frontal izquierda.jpg"),
     alt: "Faro y rueda frontal izquierda",
     label: "Faro + rueda izq.",
     wide: false,
   },
   {
-    src: p("Rueda Berlingo van.webp"),
+    src: p("Rueda Berlingo van.jpg"),
     alt: "Neumático y llanta Berlingo Van",
     label: "Rueda",
     wide: false,
@@ -118,7 +118,7 @@ const images = [
               class={`relative overflow-hidden group ${img.wide ? "sm:col-span-2" : ""}`}
             >
               <div
-                class={`relative overflow-hidden rounded-lg bg-[#E7E7E7] ${img.wide ? "aspect-[21/9] sm:aspect-[21/9]" : "aspect-[16/10]"} lg:aspect-auto lg:h-[260px]`}
+                class={`relative overflow-hidden rounded-lg bg-[#E7E7E7] ${img.wide ? "aspect-[16/10] sm:aspect-[21/9]" : "aspect-[16/10]"} lg:aspect-auto lg:h-[260px]`}
               >
                 <ResponsiveImage
                   src={img.src}

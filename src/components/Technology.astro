@@ -38,29 +38,24 @@ const dealers = [
     <!-- Dealers Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {dealers.map((dealer, i) => (
-        <a
-          href={dealer.mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bg-white border border-[#E7E7E7] rounded-lg p-5 hover:border-[#da281c]/40 hover:shadow-md transition-all duration-300 group block"
-          aria-label={`Ver ${dealer.name} en Google Maps`}
+        <div
+          class="bg-white border border-[#E7E7E7] rounded-lg p-5 transition-all duration-300"
           data-reveal="fade-up"
           style={`--reveal-delay: ${Math.min(i * 0.05, 0.35)}s`}
         >
           <div class="flex items-start gap-3">
-            <div class="w-9 h-9 shrink-0 rounded-full bg-[#da281c]/[0.06] flex items-center justify-center mt-0.5 group-hover:bg-[#da281c]/15 transition-colors">
+            <div class="w-9 h-9 shrink-0 rounded-full bg-[#da281c]/[0.06] flex items-center justify-center mt-0.5">
               <svg class="w-4 h-4 text-[#da281c]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                 <circle cx="12" cy="10" r="3"/>
               </svg>
             </div>
             <div class="flex-1 min-w-0">
-              <h3 class="text-[14px] font-bold text-[#3B3938] mb-1 group-hover:text-[#da281c] transition-colors leading-tight">{dealer.name}</h3>
+              <h3 class="text-[14px] font-bold text-[#3B3938] mb-1 leading-tight">{dealer.name}</h3>
               <p class="text-[12px] text-[#646464] leading-relaxed">{dealer.address}</p>
-              <p class="text-[11px] text-[#da281c]/70 font-bold uppercase tracking-wide mt-1 opacity-0 group-hover:opacity-100 transition-opacity">Ver en Maps →</p>
             </div>
           </div>
-        </a>
+        </div>
       ))}
     </div>
 

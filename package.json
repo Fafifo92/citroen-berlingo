@@ -17,7 +17,8 @@
     "@astrojs/node": "^10.0.6",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.5",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.2",
+    "tom-select": "^2.6.1"
   },
   "devDependencies": {
     "sharp": "^0.33.5"

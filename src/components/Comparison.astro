@@ -14,7 +14,7 @@ const models = [
     name: 'Berlingo Doble Puerta Lateral',
     description: 'Doble acceso lateral para máxima versatilidad en carga y descarga, optimizando los tiempos de tu operación.',
     image: 'FOTOS BERLINGO/seccion versiones/doble puerta lateral.webp',
-    recommended: true,
+    recommended: false,
   },
 ];
 
@@ -35,7 +35,7 @@ const colors = [
     <!-- Models Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       {models.map((model, i) => (
-        <div class={`border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg ${model.recommended ? 'border-[#da281c] ring-2 ring-[#da281c]/15 relative' : 'border-[#E7E7E7]'}`} data-reveal="fade-up" style={`--reveal-delay: ${i * 0.15}s`}>
+        <div class={`border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-[#da281c] ${model.recommended ? 'border-[#da281c] ring-2 ring-[#da281c]/15 relative' : 'border-[#E7E7E7]'}`} data-reveal="fade-up" style={`--reveal-delay: ${i * 0.15}s`}>
           {model.recommended && (
             <div class="absolute top-4 right-4 z-10">
               <span class="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white bg-[#da281c] rounded-full">Recomendado</span>
@@ -43,12 +43,13 @@ const colors = [
           )}
 
           <!-- Image -->
-          <div class="h-[220px] bg-[#F5F6F7] flex items-center justify-center relative overflow-hidden">
+          <div class="version-img-wrap h-[300px] bg-[#F5F6F7] flex items-center justify-center relative overflow-hidden">
             <ResponsiveImage
               src={model.image}
               alt={model.name}
               class="w-full h-full object-cover"
               sizes="(min-width: 768px) 50vw, 100vw"
+              widths={[480, 800, 1200]}
             />
           </div>
 
@@ -56,7 +57,7 @@ const colors = [
           <div class="p-8">
             <h3 class="text-xl font-bold text-[#3B3938] uppercase mb-3">{model.name}</h3>
             <p class="text-[14px] text-[#646464] leading-relaxed mb-6">{model.description}</p>
-            <a href="#hero" class={`w-full ${model.recommended ? 'btn-primary' : 'btn-outline-dark'}`}>
+            <a href="#hero" data-version={i === 0 ? '1-puerta' : 'doble-puerta'} class={`version-cotizar w-full ${model.recommended ? 'btn-primary' : 'btn-outline-dark'}`}>
               Cotizar
             </a>
           </div>
@@ -83,7 +84,7 @@ const colors = [
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
         <!-- Silueta -->
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center relative">
           <ResponsiveImage
             src="FOTOS BERLINGO/seccion caracteristicas/berlingo.png"
             alt="Silueta Citroën Berlingo"
@@ -91,22 +92,23 @@ const colors = [
             widths={[480]}
             sizes="(min-width: 1024px) 40vw, 80vw"
             loading="lazy"
+            showBadge={false}
           />
         </div>
 
         <!-- Medidas -->
         <div class="grid grid-cols-3 gap-3">
-          <div class="bg-[#F8F9FA] border border-[#E7E7E7] rounded-md py-5 px-3 text-center">
-            <p class="text-[11px] text-[#646464] uppercase tracking-[0.08em] font-bold mb-2">Longitud total</p>
-            <div class="text-[1.5rem] md:text-[1.75rem] font-bold text-[#da281c] leading-none"><span class="counter" data-counter-target="4753" data-counter-decimals="0" data-counter-thousands=".">0</span><span class="text-sm text-[#3B3938] ml-1">mm</span></div>
+          <div class="bg-[#F8F9FA] border border-[#E7E7E7] rounded-md py-3 px-1.5 sm:py-5 sm:px-3 text-center">
+            <p class="text-[10px] sm:text-[11px] text-[#646464] uppercase tracking-[0.08em] font-bold mb-2">Longitud total</p>
+            <div class="text-[1rem] sm:text-[1.4rem] md:text-[1.75rem] font-bold text-[#da281c] leading-none"><span class="counter" data-counter-target="4753" data-counter-decimals="0" data-counter-thousands=".">0</span><span class="text-xs sm:text-sm text-[#3B3938] ml-1">mm</span></div>
           </div>
-          <div class="bg-[#F8F9FA] border border-[#E7E7E7] rounded-md py-5 px-3 text-center">
-            <p class="text-[11px] text-[#646464] uppercase tracking-[0.08em] font-bold mb-2">Altura total</p>
-            <div class="text-[1.5rem] md:text-[1.75rem] font-bold text-[#da281c] leading-none"><span class="counter" data-counter-target="1860" data-counter-decimals="0" data-counter-thousands=".">0</span><span class="text-sm text-[#3B3938] ml-1">mm</span></div>
+          <div class="bg-[#F8F9FA] border border-[#E7E7E7] rounded-md py-3 px-1.5 sm:py-5 sm:px-3 text-center">
+            <p class="text-[10px] sm:text-[11px] text-[#646464] uppercase tracking-[0.08em] font-bold mb-2">Altura total</p>
+            <div class="text-[1rem] sm:text-[1.4rem] md:text-[1.75rem] font-bold text-[#da281c] leading-none"><span class="counter" data-counter-target="1860" data-counter-decimals="0" data-counter-thousands=".">0</span><span class="text-xs sm:text-sm text-[#3B3938] ml-1">mm</span></div>
           </div>
-          <div class="bg-[#F8F9FA] border border-[#E7E7E7] rounded-md py-5 px-3 text-center">
-            <p class="text-[11px] text-[#646464] uppercase tracking-[0.08em] font-bold mb-2">Ancho total</p>
-            <div class="text-[1.5rem] md:text-[1.75rem] font-bold text-[#da281c] leading-none"><span class="counter" data-counter-target="1921" data-counter-decimals="0" data-counter-thousands=".">0</span><span class="text-sm text-[#3B3938] ml-1">mm</span></div>
+          <div class="bg-[#F8F9FA] border border-[#E7E7E7] rounded-md py-3 px-1.5 sm:py-5 sm:px-3 text-center">
+            <p class="text-[10px] sm:text-[11px] text-[#646464] uppercase tracking-[0.08em] font-bold mb-2">Ancho total</p>
+            <div class="text-[1rem] sm:text-[1.4rem] md:text-[1.75rem] font-bold text-[#da281c] leading-none"><span class="counter" data-counter-target="1921" data-counter-decimals="0" data-counter-thousands=".">0</span><span class="text-xs sm:text-sm text-[#3B3938] ml-1">mm</span></div>
           </div>
         </div>
       </div>
@@ -186,4 +188,20 @@ const colors = [
   } else {
     counters.forEach((c) => animate(c));
   }
+
+  // Wire "Cotizar" buttons to pre-select the matching version in the hero form
+  document.querySelectorAll<HTMLAnchorElement>('a.version-cotizar[data-version]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const version = btn.dataset.version as string;
+      const versionSelect = document.getElementById('hero-version') as HTMLSelectElement | null;
+      if (!versionSelect) return;
+      // Handle both raw <select> and Tom Select wrapper
+      const tsInstance = (versionSelect as any).tomselect;
+      if (tsInstance) {
+        tsInstance.setValue(version, false);
+      } else {
+        versionSelect.value = version;
+      }
+    });
+  });
 </script>

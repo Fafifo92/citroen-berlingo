@@ -22,6 +22,7 @@ export interface Props {
   widths?: number[];
   lightbox?: boolean;
   label?: string;
+  showBadge?: boolean;
 }
 
 const {
@@ -35,6 +36,7 @@ const {
   widths = [480, 800, 1200, 1600],
   lightbox = false,
   label,
+  showBadge = true,
 } = Astro.props as Props;
 
 const base = import.meta.env.BASE_URL;
@@ -57,7 +59,8 @@ const optimizedDir = parsed.dir ? `${base}images/optimized/${enc(parsed.dir)}/` 
 const nameEnc = enc(parsed.name);
 
 const srcset = widths.map((w) => `${optimizedDir}${nameEnc}-${w}.webp ${w}w`).join(', ');
-const fallbackSrc = `${optimizedDir}${nameEnc}-800.webp`;
+const fallbackWidth = widths.includes(800) ? 800 : Math.max(...widths);
+const fallbackSrc = `${optimizedDir}${nameEnc}-${fallbackWidth}.webp`;
 ---
 
 <picture style="display:contents">
@@ -75,3 +78,9 @@ const fallbackSrc = `${optimizedDir}${nameEnc}-800.webp`;
     onerror={`this.onerror=null;this.src='${originalHref}';`}
   />
 </picture>
+{showBadge && (
+  <div class="img-ref-badge" aria-hidden="true">
+    <img src={`${base}images/svg/ICONOS.svg`} alt="" loading="lazy" decoding="async" width="200" />
+    <p>La imagen es de referencia.</p>
+  </div>
+)}

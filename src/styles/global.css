@@ -444,6 +444,279 @@ body.reveal-ready [data-reveal].revealed {
 .site-logo--invert { filter: brightness(0) invert(1); opacity: 0.85; }
 .site-logo--invert:hover { filter: brightness(0) invert(1) sepia(1) saturate(8) hue-rotate(-10deg); opacity: 1; }
 
+/* ── Tom Select — Dark Theme (all forms on this site use dark bg) ── */
+/* Base layout styles from the package */
+@import 'tom-select/dist/css/tom-select.css';
+
+/* Wrapper replaces the original <select> in the DOM */
+.ts-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+/* The visible control area */
+.ts-wrapper .ts-control {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding: 0 38px 0 14px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='1 1 6 6 11 1'/%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: border-color 0.2s ease, background-color 0.2s ease !important;
+  overflow: hidden !important;
+}
+
+.ts-wrapper.focus .ts-control,
+.ts-wrapper.dropdown-active .ts-control {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.ts-wrapper.dropdown-active .ts-control {
+  border-radius: 4px 4px 0 0 !important;
+}
+
+/* Hide the search input — simple dropdown, no search needed */
+.ts-wrapper .ts-control > input {
+  width: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  pointer-events: none !important;
+}
+
+/* Selected item text */
+.ts-wrapper .ts-control .item {
+  color: #fff !important;
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Placeholder (empty/default option selected) */
+.ts-wrapper .ts-control .placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+  font-size: 14px !important;
+}
+
+/* Dropdown panel */
+.ts-dropdown {
+  position: absolute !important;
+  z-index: 9000 !important;
+  background: #1a1a1a !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-top: none !important;
+  border-radius: 0 0 4px 4px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7) !important;
+  margin-top: 0 !important;
+}
+
+.ts-dropdown .ts-dropdown-content {
+  padding: 4px 0 !important;
+  max-height: 220px !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+}
+
+/* Options */
+.ts-dropdown .option {
+  padding: 10px 14px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  cursor: pointer !important;
+  background: transparent !important;
+  transition: background-color 0.12s ease !important;
+}
+
+.ts-dropdown .option.active {
+  background: rgba(218, 40, 28, 0.18) !important;
+  color: #fff !important;
+}
+
+.ts-dropdown .option.selected {
+  color: #da281c !important;
+  font-weight: 700 !important;
+  background: transparent !important;
+}
+
+.ts-dropdown .option.selected.active {
+  background: rgba(218, 40, 28, 0.22) !important;
+  color: #da281c !important;
+}
+
+/* Empty option (placeholder in list) */
+.ts-dropdown .option[data-value=""] {
+  color: rgba(255, 255, 255, 0.4) !important;
+  font-weight: 400 !important;
+}
+
+/* No results text */
+.ts-dropdown .no-results {
+  padding: 10px 14px !important;
+  font-size: 14px !important;
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Disabled wrapper */
+.ts-wrapper.disabled .ts-control {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+/* Scrollbar inside dropdown */
+.ts-dropdown .ts-dropdown-content::-webkit-scrollbar { width: 4px; }
+.ts-dropdown .ts-dropdown-content::-webkit-scrollbar-track { background: transparent; }
+.ts-dropdown .ts-dropdown-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+/* ── Image Reference Badge ──────────────────────────────────────────────────
+   Overlays the safety-icons SVG + "La imagen es de referencia." at the
+   bottom of every product image. Loaded once and cached by the browser.
+   Must live in global.css because it targets elements injected by
+   ResponsiveImage.astro into different component scopes.
+   ──────────────────────────────────────────────────────────────────────── */
+.img-ref-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(6px, 1.5%, 14px) clamp(8px, 2%, 18px);
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%);
+  gap: 3px;
+}
+
+.img-ref-badge > img {
+  /* SVG aspect ratio ≈ 4.12:1 — width drives size on generic images */
+  width: clamp(130px, 32%, 280px);
+  height: auto;
+  opacity: 0.88;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
+  display: block;
+}
+
+.img-ref-badge > p {
+  font-size: clamp(8px, 1.1vw, 11px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ── Hero: placed at section level, above overlays ── */
+#hero .img-ref-badge {
+  z-index: 5;
+  padding: clamp(10px, 2vh, 20px) clamp(14px, 2.5vw, 28px);
+  gap: 4px;
+}
+#hero .img-ref-badge > img {
+  width: clamp(220px, 30vw, 480px);
+}
+#hero .img-ref-badge > p {
+  font-size: clamp(10px, 1.5vw, 15px);
+  white-space: normal;
+}
+
+/* ── Hero badge: centered on mobile, raised above form card ── */
+@media (max-width: 639px) {
+  #hero .img-ref-badge {
+    z-index: 12; /* above content z:10 so it's not hidden behind form card */
+    align-items: center;
+    padding: clamp(18px, 4vh, 28px) clamp(12px, 4vw, 20px);
+    gap: 8px;
+  }
+  #hero .img-ref-badge > img {
+    width: clamp(180px, 55vw, 280px);
+  }
+  #hero .img-ref-badge > p {
+    font-size: clamp(10px, 2.5vw, 13px);
+    text-align: center;
+  }
+}
+
+/* ── Performance "Diseñada para trabajar contigo" — SVG = 3/4 of image width ── */
+.perf-img-wrap .img-ref-badge {
+  padding: clamp(8px, 2%, 16px) clamp(10px, 2.5%, 22px);
+  gap: 4px;
+  align-items: center;
+}
+.perf-img-wrap .img-ref-badge > img {
+  width: 75%;
+  height: auto;
+  max-width: 520px;
+}
+.perf-img-wrap .img-ref-badge > p {
+  font-size: clamp(9px, 1.2vw, 13px);
+  white-space: normal;
+  text-align: center;
+}
+
+/* ── Version cards — SVG centered, ~80% of card width ── */
+.version-img-wrap .img-ref-badge {
+  padding: 10px 12px;
+  gap: 4px;
+  align-items: center;
+  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0) 100%);
+}
+.version-img-wrap .img-ref-badge > img {
+  width: 80%;
+  height: auto;
+  max-width: 460px;
+}
+.version-img-wrap .img-ref-badge > p {
+  font-size: 11px;
+  white-space: normal;
+  text-align: center;
+}
+
+/* ── Lightbox badge: no bg (gradient is a separate sibling element) ── */
+#lightbox .img-ref-badge {
+  padding: 0;
+  gap: 5px;
+  background: none !important;
+  right: auto;
+}
+#lightbox .img-ref-badge > img {
+  height: clamp(55px, 13vh, 105px);
+  width: auto;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.9)) drop-shadow(0 0 3px rgba(0,0,0,0.7));
+  opacity: 0.95;
+}
+#lightbox .img-ref-badge > p {
+  font-size: clamp(10px, 1.6vh, 14px);
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 1px 4px rgba(0,0,0,1), 0 0 8px rgba(0,0,0,0.85);
+  white-space: normal;
+}
+
 /* =====================================================================
    Feedback modal — success / error after form submission
    ===================================================================== */

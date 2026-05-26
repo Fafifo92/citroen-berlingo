@@ -24,41 +24,81 @@
     </svg>
   </button>
 
-  <!-- Image Container -->
-  <div class="max-w-5xl max-h-[85vh] flex items-center justify-center">
-    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[85vh] object-contain select-none transition-opacity duration-300" />
+  <!-- Image Container — two stacked imgs for cross-fade -->
+  <div id="lb-img-wrap" class="relative max-w-5xl w-full flex items-center justify-center" style="height:min(85vh,800px);">
+    <img id="lb-a" src="" alt="" class="absolute inset-0 m-auto max-w-full max-h-full object-contain select-none" style="transition:opacity 0.45s ease;" />
+    <img id="lb-b" src="" alt="" class="absolute inset-0 m-auto max-w-full max-h-full object-contain select-none" style="opacity:0;transition:opacity 0.45s ease;" />
+    <!-- Full-width gradient covering the bottom of the rendered image area -->
+    <div id="lb-gradient" aria-hidden="true" style="position:absolute;z-index:9;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,0.62) 0%,rgba(0,0,0,0.18) 60%,rgba(0,0,0,0) 100%);"></div>
+    <!-- Badge content (no background) pinned over gradient by JS -->
+    <div id="lb-badge" class="img-ref-badge" aria-hidden="true" style="position:absolute;z-index:10;pointer-events:none;background:none;">
+      <img src="/images/svg/ICONOS.svg" alt="" loading="lazy" decoding="async" width="180" />
+      <p>La imagen es de referencia.</p>
+    </div>
   </div>
 
-  <!-- Caption -->
+  <!-- Counter -->
   <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-center">
-    <p id="lightbox-caption" class="text-sm text-white/60 uppercase tracking-[0.1em] font-bold"></p>
-    <p id="lightbox-counter" class="text-xs text-white/30 mt-1"></p>
+    <p id="lightbox-counter" class="text-xs text-white/30"></p>
   </div>
 </div>
 
 <script>
-  // Lightbox Controller
-  const lightbox = document.getElementById('lightbox')!;
-  const lbImg = document.getElementById('lightbox-img') as HTMLImageElement;
-  const lbCaption = document.getElementById('lightbox-caption')!;
-  const lbCounter = document.getElementById('lightbox-counter')!;
-  const lbClose = document.getElementById('lightbox-close')!;
-  const lbPrev = document.getElementById('lightbox-prev')!;
-  const lbNext = document.getElementById('lightbox-next')!;
+  const lightbox   = document.getElementById('lightbox')!;
+  const lbWrap     = document.getElementById('lb-img-wrap')!;
+  const lbBadge    = document.getElementById('lb-badge')!;
+  const lbGradient = document.getElementById('lb-gradient')!;
+  const lbCounter  = document.getElementById('lightbox-counter')!;
+  const lbClose    = document.getElementById('lightbox-close')!;
+  const lbPrev     = document.getElementById('lightbox-prev')!;
+  const lbNext     = document.getElementById('lightbox-next')!;
+  const imgA       = document.getElementById('lb-a') as HTMLImageElement;
+  const imgB       = document.getElementById('lb-b') as HTMLImageElement;
 
   let currentIndex = 0;
+  let front: HTMLImageElement = imgA;
+  let back:  HTMLImageElement = imgB;
+  let transitioning = false;
   let images: { src: string; alt: string; label: string }[] = [];
 
-  // Collect all lightbox-triggerable images
+  // Compute where object-contain places the image inside the container,
+  // then pin the badge to the bottom-left corner of that rendered rect.
+  function repositionBadge(img: HTMLImageElement) {
+    const nW = img.naturalWidth;
+    const nH = img.naturalHeight;
+    if (!nW || !nH) return;
+    const cW = lbWrap.clientWidth;
+    const cH = lbWrap.clientHeight;
+    const imgAspect = nW / nH;
+    const cAspect   = cW / cH;
+    let renderW: number, renderH: number, offsetX: number, offsetY: number;
+    if (imgAspect > cAspect) {
+      renderW = cW;  renderH = cW / imgAspect;
+      offsetX = 0;   offsetY = (cH - renderH) / 2;
+    } else {
+      renderH = cH;  renderW = cH * imgAspect;
+      offsetX = (cW - renderW) / 2;  offsetY = 0;
+    }
+    // Gradient: full width of rendered image, bottom 38%
+    const gradH = renderH * 0.38;
+    lbGradient.style.left   = `${offsetX}px`;
+    lbGradient.style.width  = `${renderW}px`;
+    lbGradient.style.height = `${gradH}px`;
+    lbGradient.style.bottom = `${cH - offsetY - renderH}px`;
+    lbGradient.style.top    = 'auto';
+    // Badge: pinned bottom-left inside rendered image
+    lbBadge.style.left   = `${offsetX + 10}px`;
+    lbBadge.style.bottom = `${cH - offsetY - renderH + 10}px`;
+    lbBadge.style.top    = 'auto';
+  }
+
   function initLightbox() {
     const triggers = document.querySelectorAll('[data-lightbox]');
     images = Array.from(triggers).map((el) => ({
-      // Prefer data-src (original hi-res) over el.src (which may be a compressed variant)
-      src: el.getAttribute('data-src') || (el as HTMLImageElement).src || '',
-      alt: (el as HTMLImageElement).alt || '',
+      src:   el.getAttribute('data-src') || (el as HTMLImageElement).src || '',
+      alt:   (el as HTMLImageElement).alt || '',
       label: el.getAttribute('data-label') || '',
     }));
-
     triggers.forEach((el, idx) => {
       el.addEventListener('click', () => openLightbox(idx));
       (el as HTMLElement).style.cursor = 'zoom-in';
@@ -67,10 +107,21 @@
 
   function openLightbox(index: number) {
     currentIndex = index;
-    updateImage();
+    const img = images[index];
+    front.src = img.src;
+    front.alt = img.alt;
+    front.style.opacity = '1';
+    back.style.opacity  = '0';
+    lbCounter.textContent = `${index + 1} / ${images.length}`;
     lightbox.classList.remove('hidden');
     lightbox.classList.add('flex');
     document.body.style.overflow = 'hidden';
+    // Reposition once image dimensions are available
+    if (front.complete && front.naturalWidth) {
+      repositionBadge(front);
+    } else {
+      front.onload = () => repositionBadge(front);
+    }
   }
 
   function closeLightbox() {
@@ -79,43 +130,54 @@
     document.body.style.overflow = '';
   }
 
-  function updateImage() {
-    const img = images[currentIndex];
-    lbImg.style.opacity = '0';
-    setTimeout(() => {
-      lbImg.src = img.src;
-      lbImg.alt = img.alt;
-      lbCaption.textContent = img.label;
-      lbCounter.textContent = `${currentIndex + 1} / ${images.length}`;
-      lbImg.style.opacity = '1';
-    }, 150);
+  function goTo(index: number) {
+    if (transitioning) return;
+    transitioning = true;
+    currentIndex = index;
+    const img = images[index];
+    lbCounter.textContent = `${index + 1} / ${images.length}`;
+
+    back.alt = img.alt;
+    back.style.opacity = '0';
+    const preload = new Image();
+    preload.onload = preload.onerror = () => {
+      back.src = img.src;
+      void back.offsetWidth;
+      front.style.opacity = '0';
+      back.style.opacity  = '1';
+      setTimeout(() => {
+        [front, back] = [back, front];
+        // front is now the newly visible image — reposition badge
+        if (front.naturalWidth) repositionBadge(front);
+        else front.onload = () => repositionBadge(front);
+        transitioning = false;
+      }, 460);
+    };
+    preload.src = img.src;
   }
 
-  function showPrev() {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    updateImage();
-  }
+  function showPrev() { goTo((currentIndex - 1 + images.length) % images.length); }
+  function showNext() { goTo((currentIndex + 1) % images.length); }
 
-  function showNext() {
-    currentIndex = (currentIndex + 1) % images.length;
-    updateImage();
-  }
-
-  // Event listeners
   lbClose.addEventListener('click', closeLightbox);
   lbPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
   lbNext.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
-  });
-
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', (e) => {
     if (lightbox.classList.contains('hidden')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  showPrev();
     if (e.key === 'ArrowRight') showNext();
   });
+  window.addEventListener('resize', () => repositionBadge(front));
 
-  // Init on DOM ready
+  // Touch swipe support
+  let touchStartX = 0;
+  lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+  lightbox.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) dx < 0 ? showNext() : showPrev();
+  }, { passive: true });
+
   initLightbox();
 </script>

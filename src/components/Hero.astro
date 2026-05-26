@@ -17,13 +17,10 @@ const tabs = [
 // Ken Burns slideshow — curated mix of exterior, interior, motor and details.
 // Each slide rotates with a slow zoom + pan. Order is randomized client-side.
 const heroSlides = [
-  { src: 'FOTOS BERLINGO/PHOTO- foto frontal desde un lado derecho completa.webp',                     alt: 'Berlingo Van vista frontal derecha completa',   pos: '60% center' },
-  { src: 'FOTOS BERLINGO/PHOTO- Vista lateral.webp',                                                   alt: 'Berlingo Van vista lateral completa',           pos: '50% center' },
-  { src: 'FOTOS BERLINGO/PHOTO- foto frontal desde un lado derecho ubicando la van a la izquierda.webp', alt: 'Citroën Berlingo Van diagonal frontal',         pos: '40% center' },
-  { src: 'FOTOS BERLINGO/vista del timon y emblema.webp',                                               alt: 'Timón y emblema Citroën Berlingo',              pos: '60% center' },
-  { src: 'FOTOS BERLINGO/vista del volante con todo le panel delantero.webp',                           alt: 'Panel delantero y volante de la Berlingo',      pos: '50% center' },
-  { src: 'FOTOS BERLINGO/PHOTO- vista trasera cabina de cargawebp.webp',                                alt: 'Cabina de carga trasera Berlingo Van',          pos: '50% center' },
-  { src: 'FOTOS BERLINGO/PHOTO- vista trasera con las puertas abiertas.webp',                           alt: 'Vista trasera con puertas abiertas',            pos: '50% center' },
+  { src: 'FOTOS BERLINGO/PHOTO- Vista lateral.jpg',                      alt: 'Berlingo Van vista lateral completa',       pos: '50% center' },
+  { src: 'FOTOS BERLINGO/vista del timon y emblema.jpg',                 alt: 'Timón y emblema Citroën Berlingo',          pos: '60% center' },
+  { src: 'FOTOS BERLINGO/Rueda Berlingo van.jpg',                        alt: 'Rueda Berlingo Van',                        pos: '50% center' },
+  { src: 'FOTOS BERLINGO/PHOTO- vista trasera cabina de cargawebp.jpg',  alt: 'Cabina de carga trasera Berlingo Van',      pos: '50% center' },
 ];
 ---
 
@@ -43,6 +40,7 @@ const heroSlides = [
           loading={i === 0 ? 'eager' : 'lazy'}
           fetchpriority={i === 0 ? 'high' : 'auto'}
           sizes="100vw"
+          showBadge={false}
         />
       </div>
     ))}
@@ -55,9 +53,15 @@ const heroSlides = [
   <div class="absolute inset-0 bg-gradient-to-t from-[rgba(17,17,17,0.97)] via-[rgba(17,17,17,0.7)] to-[rgba(17,17,17,0.4)] xl:bg-none xl:[background-image:linear-gradient(90deg,rgba(17,17,17,0.55)_0%,rgba(17,17,17,0.6)_30%,rgba(17,17,17,0.88)_62%,rgba(17,17,17,0.97)_100%)]"></div>
   <div class="hidden xl:block absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent"></div>
 
+  <!-- Image reference badge — above all overlays (z:5 < content z:10) -->
+  <div class="img-ref-badge" aria-hidden="true">
+    <img src={`${base}images/svg/ICONOS.svg`} alt="" loading="lazy" decoding="async" />
+    <p>La imagen es de referencia.</p>
+  </div>
+
   <!-- Content -->
   <div class="relative z-10 flex-1 flex items-center">
-    <div class="max-w-[1200px] mx-auto px-6 w-full pt-28 pb-20 xl:pt-32 xl:pb-24">
+    <div class="max-w-[1200px] mx-auto px-6 w-full pt-28 pb-44 xl:pt-32 xl:pb-24">
       <div class="grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-16 items-center">
 
         <!-- Left: Content -->
@@ -74,14 +78,25 @@ const heroSlides = [
           </h1>
 
           <!-- Subtitle -->
-          <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 font-medium mb-6 max-w-lg animate-fade-in-up [animation-delay:0.1s] [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
+          <p class="text-[clamp(1rem,2vw,1.25rem)] leading-tight text-white/90 font-medium mb-2 max-w-lg animate-fade-in-up [animation-delay:0.1s] [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
             Más capacidad, menor costo operativo y el respaldo que necesitas para no parar
           </p>
 
           <!-- Price -->
-          <div class="mb-8 animate-fade-in-up [animation-delay:0.15s]">
-            <span class="text-[13px] text-white/50 uppercase tracking-[0.1em] font-bold block mb-1">Precio desde</span>
-            <span class="text-[clamp(1.75rem,4vw,2.5rem)] font-bold text-white">$99.990.000</span>
+          <div class="mb-6 animate-fade-in-up [animation-delay:0.15s]">
+            <span class="text-[13px] text-white/50 uppercase tracking-[0.1em] font-bold block">Precio desde</span>
+            <span class="text-[clamp(1.75rem,4vw,2.5rem)] font-bold text-white">99.990.000 COP</span>
+            <!-- Collapsible legal disclaimer -->
+            <div class="hero-disclaimer-wrap max-w-lg">
+              <div id="hero-disclaimer" class="hero-disclaimer-collapsed">
+                <p class="text-[12px] text-white/90 leading-[1.35]">
+                  El precio de venta sugerido al público incluido IVA (PVSP) indicado está sujeto a confirmación y podrá incrementarse o variar por condiciones externas al VENDEDOR. Este (PVSP) es válido por el mismo tiempo de la vigencia de la oferta comercial. El precio final o definitivo será el que informe y registre el concesionario en los documentos comerciales que hacen parte de sus políticas o procedimientos de venta, es decir, contrato de compraventa, oferta comercial y/o factura, según corresponda. Los precios de venta finales o definitivos son libremente establecidos e informados por cada concesionario al público. Los precios sugeridos de venta de vehículos no incluyen carrocería, gastos de matrícula, SOAT, traslados entre ciudades, ni seguros, como tampoco gastos de instalación en el caso de los precios sugeridos de venta al público de los accesorios. Las imágenes son de referencia y pueden variar de acuerdo al modelo elegido por el cliente. Los tiempos de entrega dependerán de la disponibilidad de inventario de cada concesionario, así como también, en caso de que el cliente requiera financiación externa, plan de financiación, entre otros, los cuales serán otorgados conforme al reglamento de la entidad crediticia elegida por el cliente sin injerencia o responsabilidad de Inchcape Colombia S.A.S o su red aliada de concesionarios. Algunos accesorios son parte de la ambientación fotográfica o de otras versiones del vehículo. Las ilustraciones pueden mostrar equipos opcionales y accesorios no pertenecientes al equipamiento de serie. Tu asesor de ventas de la citroen berlingo van del concesionario elegido, confirmará disponibilidad, versión, equipamiento, diseño, características y precio final previo a la compra. Términos y condiciones
+                </p>
+              </div>
+              <button id="hero-disclaimer-btn" class="hero-disclaimer-btn" type="button">
+                Leer más <svg id="hero-disclaimer-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
           </div>
 
           <!-- 4 Bullets -->
@@ -104,13 +119,7 @@ const heroSlides = [
             </div>
           </div>
 
-          <!-- CTAs -->
-          <div class="flex flex-wrap gap-4 items-center animate-fade-in-up [animation-delay:0.3s]">
-            <a href={`${base}docs/ficha-tecnica-berlingo.pdf`} download class="btn-outline" id="download-ficha">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-              Descargar Ficha Técnica
-            </a>
-          </div>
+
         </div>
 
         <!-- Right: Lead Form -->
@@ -140,7 +149,21 @@ const heroSlides = [
               </div>
               <div class="mb-4">
                 <label for="hero-city" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Ciudad</label>
-                <input type="text" id="hero-city" name="city" class="hero-form-input" placeholder="Ej. Bogotá" required />
+                <select id="hero-city" name="city" class="hero-form-input" required>
+                  <option value="">Selecciona tu ciudad</option>
+                  <option>Barranquilla</option>
+                  <option>Bogotá</option>
+                  <option>Bucaramanga</option>
+                  <option>Cali</option>
+                  <option>Cartagena</option>
+                  <option>Chía</option>
+                  <option>Cúcuta</option>
+                  <option>Medellín</option>
+                  <option>Pasto</option>
+                  <option>Pereira</option>
+                  <option>Tunja</option>
+                  <option>Villavicencio</option>
+                </select>
               </div>
               <div class="mb-4">
                 <label for="hero-version" class="block text-[12px] font-bold uppercase tracking-[0.05em] text-white/70 mb-1.5">Versión de interés</label>
@@ -266,6 +289,50 @@ const heroSlides = [
   select.hero-form-input option {
     background: #1a1a1a;
     color: #fff;
+  }
+
+  /* ── Hero legal disclaimer — collapsible ── */
+  .hero-disclaimer-wrap {
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  #hero-disclaimer {
+    overflow: hidden;
+    transition: max-height 0.45s ease, mask-size 0.45s ease, -webkit-mask-size 0.45s ease;
+  }
+  .hero-disclaimer-collapsed {
+    max-height: 3.8em;
+    -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  }
+  .hero-disclaimer-expanded {
+    max-height: 600px;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .hero-disclaimer-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: rgba(255,255,255);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 3px 0;
+    margin-top: 4px;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .hero-disclaimer-btn:hover {
+    color: rgba(255,255,255,0.95);
+  }
+  .hero-disclaimer-btn svg {
+    transition: transform 0.35s ease;
+    flex-shrink: 0;
+  }
+  .hero-disclaimer-btn.is-open svg {
+    transform: rotate(180deg);
   }
 </style>
 
@@ -401,8 +468,37 @@ const heroSlides = [
     });
   });
 
+  // ── Hero disclaimer toggle (leer más / leer menos) ──────────────────────
+  (() => {
+    const box = document.getElementById('hero-disclaimer');
+    const btn = document.getElementById('hero-disclaimer-btn');
+    if (!box || !btn) return;
+
+    btn.addEventListener('click', () => {
+      const isOpen = box.classList.contains('hero-disclaimer-expanded');
+      if (isOpen) {
+        box.classList.remove('hero-disclaimer-expanded');
+        box.classList.add('hero-disclaimer-collapsed');
+        btn.classList.remove('is-open');
+        btn.childNodes[0].textContent = 'Leer más ';
+      } else {
+        box.classList.remove('hero-disclaimer-collapsed');
+        box.classList.add('hero-disclaimer-expanded');
+        btn.classList.add('is-open');
+        btn.childNodes[0].textContent = 'Leer menos ';
+      }
+    });
+  })();
+
   // Hero form submit — wired to Zapier via form-handler.ts
   import { submitForm } from './form-handler';
+  import TomSelect from 'tom-select';
+
+  // Replace native <select> elements in hero form with Tom Select
+  const heroVersionEl = document.getElementById('hero-version') as HTMLSelectElement | null;
+  if (heroVersionEl) new TomSelect(heroVersionEl, { create: false, allowEmptyOption: true });
+  const heroCityEl = document.getElementById('hero-city') as HTMLSelectElement | null;
+  if (heroCityEl) new TomSelect(heroCityEl, { create: false, allowEmptyOption: true });
 
   const heroForm = document.getElementById('hero-contact-form') as HTMLFormElement;
   const heroBtn  = document.getElementById('hero-submit-btn') as HTMLButtonElement;

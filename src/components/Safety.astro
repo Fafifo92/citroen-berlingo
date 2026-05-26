@@ -124,25 +124,23 @@ const services = [
             <input type="text" name="document_number" class="pv-input" placeholder="Documento de identidad" required />
           </div>
           <div class="grid grid-cols-2 gap-3 mb-3">
-            <select name="city" class="pv-input" required>
+            <select name="city" id="cita-city" class="pv-input" required>
               <option value="">Ciudad</option>
-              <option>Bogotá</option>
-              <option>Medellín</option>
-              <option>Cali</option>
               <option>Barranquilla</option>
-              <option>Cartagena</option>
+              <option>Bogotá</option>
               <option>Bucaramanga</option>
+              <option>Cali</option>
+              <option>Cartagena</option>
+              <option>Chía</option>
+              <option>Cúcuta</option>
+              <option>Medellín</option>
+              <option>Pasto</option>
               <option>Pereira</option>
-              <option>Manizales</option>
-              <option>Otra</option>
+              <option>Tunja</option>
+              <option>Villavicencio</option>
             </select>
-            <select name="workshop" class="pv-input" required>
-              <option value="">Selecciona un taller</option>
-              <option>Taller Bogotá Norte</option>
-              <option>Taller Bogotá Sur</option>
-              <option>Taller Medellín</option>
-              <option>Taller Cali</option>
-              <option>Taller Barranquilla</option>
+            <select name="workshop" id="cita-workshop" class="pv-input" required disabled>
+              <option value="">Selecciona primero una ciudad</option>
             </select>
           </div>
           <div class="grid grid-cols-3 gap-3 mb-3">
@@ -150,15 +148,17 @@ const services = [
             <input type="number" name="model_year" class="pv-input" placeholder="Año" min="1990" max="2030" required />
             <input type="number" name="kilometraje" class="pv-input" placeholder="Kilometraje" min="0" required />
           </div>
-          <select name="service_type" class="pv-input mb-3" required>
-            <option value="">Tipo de servicio</option>
-            <option>Colisión</option>
-            <option>Servicio express</option>
-            <option>Reparaciones mecánicas</option>
-            <option>Mantenimiento preventivo</option>
-            <option>Recall</option>
-            <option>Garantía</option>
-          </select>
+          <div class="mb-3">
+            <select name="service_type" class="pv-input" required>
+              <option value="">Tipo de servicio</option>
+              <option>Colisión</option>
+              <option>Servicio express</option>
+              <option>Reparaciones mecánicas</option>
+              <option>Mantenimiento preventivo</option>
+              <option>Recall</option>
+              <option>Garantía</option>
+            </select>
+          </div>
           <textarea name="comments" rows="3" class="pv-input !h-auto py-3 mb-2" placeholder="Comentarios"></textarea>
           <PrivacyConsent id="cita-privacy" variant="dark" />
           <button type="submit" class="btn-primary w-full">Agendar Cita</button>
@@ -189,33 +189,38 @@ const services = [
             </select>
             <input type="text" name="document_number" class="pv-input" placeholder="Documento de identidad" required />
           </div>
-          <select name="city" class="pv-input mb-3" required>
-            <option value="">Ciudad</option>
-            <option>Bogotá</option>
-            <option>Medellín</option>
-            <option>Cali</option>
-            <option>Barranquilla</option>
-            <option>Cartagena</option>
-            <option>Bucaramanga</option>
-            <option>Pereira</option>
-            <option>Manizales</option>
-            <option>Otra</option>
-          </select>
+          <div class="mb-3">
+            <select name="city" class="pv-input" required>
+              <option value="">Ciudad</option>
+              <option>Barranquilla</option>
+              <option>Bogotá</option>
+              <option>Bucaramanga</option>
+              <option>Cali</option>
+              <option>Cartagena</option>
+              <option>Chía</option>
+              <option>Cúcuta</option>
+              <option>Medellín</option>
+              <option>Pasto</option>
+              <option>Pereira</option>
+              <option>Tunja</option>
+              <option>Villavicencio</option>
+            </select>
+          </div>
           <div class="grid grid-cols-2 gap-3 mb-3">
             <input type="text" name="model" class="pv-input" placeholder="Modelo" required />
             <input type="number" name="model_year" class="pv-input" placeholder="Año modelo" min="1990" max="2030" required />
           </div>
-          <select name="part_category" class="pv-input mb-3" required>
-            <option value="">¿Qué repuesto desea cotizar?</option>
-            <option>Componentes de cabina</option>
-            <option>Componentes eléctricos</option>
-            <option>Kit de reparación de motor</option>
-            <option>Kit de embragues</option>
-            <option>Kit de filtros</option>
-            <option>Refrigerantes</option>
-            <option>Sistema de suspensión</option>
-            <option>Tren de potencia</option>
-          </select>
+          <div class="mb-3">
+            <select name="part_category" class="pv-input" required>
+              <option value="">¿Qué repuesto desea cotizar?</option>
+              <option>Componentes de cabina</option>
+              <option>Componentes eléctricos</option>
+              <option>Refrigerantes</option>
+              <option>Sistema de suspensión</option>
+              <option>Tren de potencia</option>
+              <option>Otros</option>
+            </select>
+          </div>
           <textarea name="message" rows="3" class="pv-input !h-auto py-3 mb-2" placeholder="Mensaje"></textarea>
           <PrivacyConsent id="repuestos-privacy" variant="dark" />
           <button type="submit" class="btn-outline w-full">Solicitar Repuesto</button>
@@ -254,23 +259,78 @@ const services = [
     padding-right: 38px;
   }
   select.pv-input option { background: #1a1a1a; color: #fff; }
+  select.pv-input:disabled { opacity: 0.45; cursor: not-allowed; }
   textarea.pv-input { line-height: 1.5; }
 </style>
 
 <script>
+  import TomSelect from 'tom-select';
   import { submitForm } from './form-handler';
   import type { FormType } from './form-handler';
 
+  const TS_OPTS = { create: false, allowEmptyOption: true, maxOptions: 50 };
+
+  // City → workshops mapping
+  const workshopsByCity: Record<string, string[]> = {
+    'Barranquilla':  ['Country Trucks'],
+    'Bogotá':        ['Inchcape Retail Américas (antes Praco Didacol)', 'Inchcape Retail Fontibón (antes Praco Didacol)', 'Truck Nation', 'Sanautos Paloquemao'],
+    'Bucaramanga':   ['Vehidiesel', 'Sanautos'],
+    'Cali':          ['Autama Motor', 'Pacífico Motors (Yumbo)'],
+    'Cartagena':     ['Vehidiesel'],
+    'Chía':          ['Alcalá Motor', 'Inchcape Retail Chía (antes Praco Didacol)'],
+    'Cúcuta':        ['Fersautos'],
+    'Medellín':      ['Truck Nation Itagüí'],
+    'Pasto':         ['Motor K'],
+    'Pereira':       ['Andinautos'],
+    'Tunja':         ['Country Trucks'],
+    'Villavicencio': ['Alcalá'],
+  };
+
+  // Init Tom Select on every select in the posventa forms
+  const tsMap = new Map<string, InstanceType<typeof TomSelect>>();
+  document.querySelectorAll<HTMLSelectElement>('form.posventa-form select').forEach((el) => {
+    const ts = new TomSelect(el, { ...TS_OPTS });
+    if (el.id) tsMap.set(el.id, ts);
+    else tsMap.set(`${el.closest('form')?.dataset.form}-${el.name}`, ts);
+  });
+
+  // Workshop select starts disabled
+  const workshopTs = tsMap.get('cita-workshop');
+  if (workshopTs) workshopTs.disable();
+
+  // City → workshop conditional logic
+  const cityTs = tsMap.get('cita-city');
+  if (cityTs && workshopTs) {
+    cityTs.on('change', (value: string) => {
+      workshopTs.clear(true);
+      workshopTs.clearOptions();
+      const workshops = workshopsByCity[value] ?? [];
+      if (!value || workshops.length === 0) {
+        workshopTs.addOption({ value: '', text: 'Selecciona primero una ciudad' });
+        workshopTs.setValue('', true);
+        workshopTs.disable();
+        return;
+      }
+      workshopTs.enable();
+      if (workshops.length > 1) {
+        workshopTs.addOption({ value: '', text: 'Selecciona un taller' });
+        workshops.forEach(w => workshopTs.addOption({ value: w, text: w }));
+        workshopTs.setValue('', true);
+      } else {
+        workshopTs.addOption({ value: workshops[0], text: workshops[0] });
+        workshopTs.setValue(workshops[0], true);
+      }
+    });
+  }
+
+  // Form submissions
   document.querySelectorAll<HTMLFormElement>('form.posventa-form').forEach((form) => {
     const formType = form.dataset.form as FormType;
     const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
     if (!btn) return;
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
+      if (!form.checkValidity()) { form.reportValidity(); return; }
       await submitForm(form, formType, btn);
     });
   });
