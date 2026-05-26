@@ -22,6 +22,9 @@ const zapierCotizacion  = import.meta.env.PUBLIC_ZAPIER_WEBHOOK_COTIZACION ?? ''
 const zapierCita        = import.meta.env.PUBLIC_ZAPIER_WEBHOOK_CITA       ?? '';
 const zapierRepuestos   = import.meta.env.PUBLIC_ZAPIER_WEBHOOK_REPUESTOS  ?? '';
 
+const siteUrl = Astro.site?.href.replace(/\/$/, '') ?? '';
+const ogImage = `${siteUrl}/images/FOTOS%20BERLINGO/PHOTO-%20foto%20frontal%20desde%20un%20lado%20derecho%20completa.jpg`;
+
 // Build the reCAPTCHA script URL based on version
 const rcpSrc = recaptchaSiteKey
   ? recaptchaVersion === 'v3'
@@ -46,15 +49,18 @@ const rcpSrc = recaptchaSiteKey
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
     <meta property="og:title" content="Citroën Berlingo Van | La van que hace crecer tu negocio" />
-    <meta property="og:description" content="Más capacidad, menor costo operativo y el respaldo que necesitas para no parar. Desde 99.990.000 COP." />
+    <meta property="og:description" content="Más capacidad, menor costo operativo y el respaldo que necesitas para no parar. Hasta 4,4 m³ de carga, motor turbodiésel eficiente. Desde 99.990.000 COP." />
     <meta property="og:locale" content="es_CO" />
-    <meta property="og:image" content="/images/optimized/FOTOS BERLINGO/PHOTO- Vista lateral-1200.webp" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Citroën Berlingo Van | Cotiza Ahora" />
     <meta name="twitter:description" content="La van que hace crecer tu negocio. Hasta 4,4 m³, turbodiésel eficiente. Desde 99.990.000 COP." />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Citroën Berlingo Van | La van que hace crecer tu negocio | Cotiza</title>
